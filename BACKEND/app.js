@@ -1,8 +1,12 @@
-const express = require("express");
-const helmet = require ("helmet");
-const bodyParser = require("body-parser");
-const path = require("path");
-const mysql = require("mysql2");
+const express = require('express');
+const helmet = require ('helmet');
+const bodyParser = require('body-parser');
+const path = require('path');
+const mysql = require('mysql2');
+
+//module npm qui charge les variables d'environement
+require('dotenv').config();
+
 
  // Appel express
  const app = express();
@@ -10,11 +14,11 @@ const mysql = require("mysql2");
  const db = mysql.createConnection({
      host:process.env.DB_HOST,
      user:process.env.DB_USER,
-     password:process.env.DB_PASSWORD,
      database:process.env.DB_NAME,
+     password:process.env.DB_PASSWORD,
 
  });
-
+ 
  db.connect((error) => {
     if (error) {
         console.log(error)
