@@ -7,10 +7,14 @@ const mysql = require('mysql2');
 //module npm qui charge les variables d'environement
 require('dotenv').config();
 
+//import des routes 
+const userRoutes = require("./routes/user");
+
 
  // Appel express
  const app = express();
 
+//CONNEXION BASE DE DONNEES
  const db = mysql.createConnection({
      host:process.env.DB_HOST,
      user:process.env.DB_USER,
@@ -39,5 +43,9 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+
+//enregistrement des routeurs
+
+app.use ("/user", UserRoutes);
 
 module.exports = app;
