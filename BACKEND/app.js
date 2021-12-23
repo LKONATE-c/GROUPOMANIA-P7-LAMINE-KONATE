@@ -8,7 +8,7 @@ const mysql = require('mysql2');
 require('dotenv').config();
 
 //import des routes 
-const userRoutes = require("./routes/user");
+const UserRoutes = require("./routes/user");
 
 
  // Appel express

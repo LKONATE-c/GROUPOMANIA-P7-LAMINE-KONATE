@@ -1,9 +1,10 @@
-const express = require ("express");
+const express = require("express");
 const Router = express.Router();
+const mysql = require('mysql2');
 
 
 
-Router.get("/", (req,res)=>{
+Router.get("/user", (req, res)=>{
     mysql.createConnection.query("SELECT * from user", (err, rows, fields)=>{
         if(!err)
             {
