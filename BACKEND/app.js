@@ -9,6 +9,7 @@ require('dotenv').config();
 
 //import des routes 
 const UserRoutes = require("./routes/user");
+const ArticleRoutes = require("./routes/article");
 
 
  // Appel express
@@ -47,5 +48,5 @@ app.use(express.json());
 //enregistrement des routeurs
 
 app.use ("/user", UserRoutes);
-
+app.use ("/article", ArticleRoutes);
 module.exports = app;
