@@ -4,9 +4,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql2');
 
-//module npm qui charge les variables d'environement
-require('dotenv').config();
-
 //import des routes 
 const UserRoutes = require("./routes/user");
 const ArticleRoutes = require("./routes/article");
@@ -14,24 +11,7 @@ const ArticleRoutes = require("./routes/article");
 
  // Appel express
  const app = express();
-
-//CONNEXION BASE DE DONNEES
- const db = mysql.createConnection({
-     host:process.env.DB_HOST,
-     user:process.env.DB_USER,
-     database:process.env.DB_NAME,
-     password:process.env.DB_PASSWORD,
-
- });
  
- db.connect((error) => {
-    if (error) {
-        console.log(error)
-
-    }else {
-        console.log("mysql connect")
-    }
- })
  //methode securité helmet
  app.use(helmet());
 
@@ -47,6 +27,6 @@ app.use(express.json());
 
 //enregistrement des routeurs
 
-app.use ("/user", UserRoutes);
-app.use ("/article", ArticleRoutes);
+app.use("/user", UserRoutes);
+app.use("/article", ArticleRoutes);
 module.exports = app;
