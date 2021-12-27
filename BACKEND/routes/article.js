@@ -1,5 +1,5 @@
 const express = require("express");
-const Router = express.Router();
+const router = express.Router();
 const db = require("../models/db.js");
 const multer = require('../middlewares/multer-config');
 const ctrlarticle = require('../controllers/article');
@@ -7,12 +7,12 @@ const ctrlarticle = require('../controllers/article');
 
 
 
-Router.get("/all",ctrlarticle.getall());
-Router.get("/article/:id",ctrlarticle.getone());
-Router.post("/",ctrlarticle.add());
-Router.delete("/article/:id",ctrlarticle.delete());
-Router.put('/update',ctrlarticle.delete());
+router.get("/all",ctrlarticle.getall());
+router.get("/article/:id",ctrlarticle.getone());
+router.post("/",ctrlarticle.add());
+router.delete("/article/:id",ctrlarticle.delete());
+router.put('/update',ctrlarticle.delete());
 
 
 
-module.exports = Router;
+module.exports = router;
