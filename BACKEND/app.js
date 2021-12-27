@@ -7,6 +7,9 @@ const mysql = require('mysql2');
 //import des routes 
 const UserRoutes = require("./routes/user");
 const ArticleRoutes = require("./routes/article");
+const CommentaireRoutes = require("./routes/commentaire");
+const LikesRoutes = require("./routes/likes");
+const authRoutes = require('./routes/auth');
 
 
  // Appel express
@@ -26,7 +29,13 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 //enregistrement des routeurs
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
-app.use("/user", UserRoutes);
-app.use("/article", ArticleRoutes);
+app.use("/api/user", UserRoutes);
+app.use("/api/article", ArticleRoutes);
+app.use("/api/commentaire",CommentaireRoutes);
+app.use("/api/likes",LikesRoutes);
+app.use('/api/auth', authRoutes);
+
+
 module.exports = app;

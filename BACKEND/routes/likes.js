@@ -2,17 +2,21 @@ const express = require("express");
 const Router = express.Router();
 const db = require("../models/db.js");
 
+
+
+
+
 Router.get("/all", (req, res, next)=>{
    
-    db.query("SELECT * from user",(err, rows, fields)=>{
+    db.query("SELECT * from likes",(err, rows, fields)=>{
         res.json(rows);
     })
     
     
-
 })
-Router.get("/user/:id", (req, res, next)=>{
-    db.query("SELECT * from user WHERE id =?",[req.params.id], (err, rows, fields)=>{
+
+Router.get("/likes/:id", (req, res, next)=>{
+    db.query("SELECT * from likes WHERE id =?",[req.params.id], (err, rows, fields)=>{
         if(!err)
             {
                 res.json(rows);
@@ -25,8 +29,8 @@ Router.get("/user/:id", (req, res, next)=>{
 
 })
 Router.post("/", (req, res, next) =>{
-    let data = [ req.body.firstname, req.body.lastname, req.body.email, req.body.password ];
-    db.query("INSERT INTO user ( firstname, lastname, email, password  ) VALUES (?, ?, ?, ? )",
+    let data = [req.body.id, req.body.content, req.body.image, req.body.create-date,req.body.like];
+    db.query("INSERT INTO like (id) VALUES (?)",
     data, (err,rows,fields) =>{
         if(!err){
             res.json(results);
@@ -38,8 +42,8 @@ Router.post("/", (req, res, next) =>{
 })
 
 
-Router.delete("/article/:id", (req, res, next)=>{
-    db.query("DELETE FROM user WHERE id =?",
+Router.delete("/like/:id", (req, res, next)=>{
+    db.query("DELETE FROM article WHERE LikID =?",
     [req.params.id], (err, rows, fields)=>{
         if(!err)
             {
@@ -52,8 +56,8 @@ Router.delete("/article/:id", (req, res, next)=>{
     })
 
    Router.put('/update', (req,res, next)=>{
-       db.query("UPDATE SET user firstname = ?, lastname = ?, password = ?, WHERE id = ?",
-       [req.body.firstname, req.body.lastname, req.body.password, req.body.id],
+       db.query("UPDATE SET like  WHERE id = ?",
+       [ id],
        (err, rows, fields) =>{
            if (!err) {
                res.json("update successfully");
