@@ -2,15 +2,19 @@
 const db = require("../models/db");
 
 
-exports.getall  = (req, res, next)=>{
-   console.log ("hello");
-    db.query("SELECT * from article", (err, rows, fields)=>{
+
+
+//recuperer tous les likes/dislikes
+exports.getall = (req, res, next)=>{
+   
+    db.query("SELECT * from likes",(err, rows, fields)=>{
         res.json(rows);
     })
 }
 
-exports.getone =  (req, res, next)=>{
-    db.query("SELECT * from article WHERE id =?",[req.params.id], (err, rows, fields)=>{
+//récupérer un like/dislike
+exports.getone = (req, res, next)=>{
+    db.query("SELECT * from likes WHERE id =?",[req.params.id], (err, rows, fields)=>{
         if(!err)
             {
                 res.json(rows);
@@ -20,11 +24,13 @@ exports.getone =  (req, res, next)=>{
                 console.log(err);
             }
     })
-} 
 
+}
+
+//liker un article
 exports.add = (req, res, next) =>{
-    let data = [ req.body.content, req.body.image, req.body.like];
-    db.query("INSERT INTO article ( content, image, like) VALUES (?, ?, ?  )",
+    let data = [ req.body.content,  req.body.like];
+    db.query("INSERT INTO likes (id) VALUES (?)",
     data, (err,rows,fields) =>{
         if(!err){
             res.json(results);
@@ -35,8 +41,8 @@ exports.add = (req, res, next) =>{
 
 }
 
-exports.delete =(req, res, next) =>{
-    db.query("DELETE FROM article WHERE id =?",
+exports.delete = (req, res, next)=>{
+    db.query("DELETE FROM likes WHERE LikID =?",
     [req.params.id], (err, rows, fields)=>{
         if(!err)
             {
@@ -49,9 +55,9 @@ exports.delete =(req, res, next) =>{
     })
 }
 
-exports.upadate = (req,res, next)=>{
-    db.query("UPDATE SET article content = ?, image = ?, WHERE id = ?",
-    [req.body.content, req.body.image, req.body.id],
+exports.update = (req,res, next)=>{
+    db.query("UPDATE SET likes  WHERE id = ?",
+    [ id],
     (err, rows, fields) =>{
         if (!err) {
             res.json("update successfully");
@@ -60,3 +66,6 @@ exports.upadate = (req,res, next)=>{
         }
     })
 }
+ 
+ 
+
