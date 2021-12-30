@@ -1,14 +1,29 @@
 const express = require("express");
-const Router = express.Router();
+const router = express.Router();
 const db = require("../models/db.js");
+const ctrluser = require('../controllers/user');
 
-Router.get("/all", (req, res, next)=>{
+
+router.get("/all",ctrluser.getall);
+router.get("/getone/:id",ctrluser.getone);
+router.post("/signup",ctrluser.signup);
+router.post("/login",ctrluser.login);
+router.delete("/user/:id",ctrluser.delete);
+router.put("/modifyPassword/:id",ctrluser.modifyPassword);
+router.put("/modifAccount/:id",ctrluser.modifAccount);
+
+
+module.exports = router;
+
+
+
+/*router.get("/all", (req, res, next)=>{
    
     db.query("SELECT * from user",(err, rows, fields)=>{
         res.json(rows);
     })
     
-    
+
 
 })
 Router.get("/user/:id", (req, res, next)=>{
@@ -63,8 +78,4 @@ Router.delete("/article/:id", (req, res, next)=>{
        })
    })
     
-    });
-
-
-
-module.exports = Router;
+    });*/

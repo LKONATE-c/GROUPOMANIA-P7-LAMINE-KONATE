@@ -86,7 +86,7 @@ exports.delete = (req, res, next) => {
        });
     }
 }
-//recuper tous par nom ou prénom
+//recupérer tous par nom ou prénom
 exports.getall = (req, res, next) => {
     db.query("SELECT * FROM user where firstname LIKE '%${req.body.firstname}%' OR lastname LIKE '%${req.body.lastname}%'",
     [req.body.firstname, req.body.lastname],
@@ -120,7 +120,7 @@ exports.modifyPassword = (req, res, next) => {
                     .then(hash => {
                         let sql2 = "UPDATE user SET password=? WHERE id=?";
                        
-                        dbquery(sql2, [hash, req.params.id],
+                        db.query(sql2, [hash, req.params.id],
                             function (err,result) {
                                 if (err) throw err;
                                 res.status(200).json({message:'password modify'})
@@ -133,3 +133,23 @@ exports.modifyPassword = (req, res, next) => {
         })
     }
 }
+//modification du user
+exports.modifAccount = (req, res, next) => {
+      
+    if (req.body.firstname != "") {
+        let sql2 = 'UPDATE user SET firstname=? WHERE id=?';
+        db.query(sql2, [req.body.firstname, req.params.id],
+            function (err,result){
+                if (err) throw err;
+            });
+    }
+    
+    if (req.body.lastname != "") {
+        let sql2 = 'UPDATE user SET lastname=? WHERE id=?';
+        db.query(sql2,[req.body.lastname, req.params.id],
+            function (err, result){
+                if (err) throw err;
+            });
+        }
+        res.status(200).json({ message:'user update'})
+    }
