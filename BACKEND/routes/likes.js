@@ -1,14 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const ctrllikes = require('../controllers/likes');
+const likesctrl = require('../controllers/likes');
 
 
-router.get("/all",ctrllikes.getall);
-router.get("/likes/:id",ctrllikes.getone);
-router.post("/",ctrllikes.add);
-router.delete("/like/:id",ctrllikes.delete);
-router.put('/update',ctrllikes.update);
-
+router.post("/like",likesctrl.like);
+router.post("/liked",likesctrl.liked)
 
 
 module.exports = router;

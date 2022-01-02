@@ -3,9 +3,10 @@ const db = require("../models/db");
 
 
 exports.getall  = (req, res, next)=>{
-   console.log ("hello");
+   
     db.query("SELECT * from article", (err, rows, fields)=>{
-        res.json(rows);
+        if (err) res.status(400);json({ err });
+        res.status(200).json(result)
     })
 }
 
@@ -13,11 +14,11 @@ exports.getone =  (req, res, next)=>{
     db.query("SELECT * from article WHERE id =?",[req.params.id], (err, rows, fields)=>{
         if(!err)
             {
-                res.json(rows);
+                res.status(200).json(result);
             }
             else
             {
-                console.log(err);
+                res.status(400).json(err);
             }
     })
 } 

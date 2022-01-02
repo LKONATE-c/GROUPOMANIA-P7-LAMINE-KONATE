@@ -12,11 +12,13 @@ exports.signup = (req, res, next)=> {
         if (!user) {
             bcrypt.hash(req.body.password,10)
             .then (hash => {
+                const image = `${req.protocol}://${req.get('host')}/images/profile/pp.png`;
                 const user = {
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
                     email: req.body.email,
-                    password: hash
+                    password: hash,
+                    imageUrl:image,
                 }
                 let data = [ req.body.firstname, req.body.lastname, req.body.email. req.body.password];
                 db.query("INSERT INTO user ( firstname, lastname, email, password) VALUES (?, ?, ?, ?  )",
