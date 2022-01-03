@@ -1,50 +1,53 @@
 const db = require("../models/db");
 
-
-exports.getall  = ("/all", (req, res, next)=>{
+exports.getall  = (req, res, next)=>{
    
-    db.query("SELECT * from commentaire",(err, rows, fields)=>{
-        res.json(rows);
+    db.query("SELECT * from commentaire", (err, rows, fields)=>{
+        if (err) res.status(400);json({ err });
+        res.status(200).json(result)
     })
+}
 
-})
-
-exports.getone = ("/article/:id", (req, res, next)=>{
-    db.query("SELECT * from commentaire WHERE ArtID =?",[req.params.id], (err, rows, fields)=>{
+exports.getone = ("/commentaire/:id", (req, res, next)=>{
+    db.query("SELECT * from commentaire WHERE ID =?",[req.params.id], (err, res, next)=>{
         if(!err)
             {
-                res.json(rows);
+                res.status(200).json(result);
             }
             else
             {
-                console.log(err);
+                (error => res.status(404).json({ error }));
             }
     })
 
 })
 
 exports.add = ("/", (req, res, next) =>{
-    let data = [req.body.id, req.body.content, req.body.userid, req.body.user_id,];
-    db.query("INSERT INTO article (id, content, userid, user_id) VALUES (?, ?, ?, ?)",
-    data, (err,rows,fields) =>{
+    let data = [ req.body.content, req.body.userid, req.body.articleid,];
+    db.query("INSERT INTO commentaire ( content, userid, articleid) VALUES (?, ?, ?)",
+    data, (err,res,next) =>{
         if(!err){
-            res.json(results);
+            res.status(200).json({ message:"content add"});
         }else {
-            console.log(err);
+            res.status(400).json(err);
         }
     })
 })
 
+
+
+
 exports.delete = (req, res, next)=>{
-    db.query("DELETE FROM article WHERE ComID =?",
+    db.query("DELETE FROM commentaire WHERE ComID =?",
     [req.params.id], (err, rows, fields)=>{
+        if (result[0].userId == req.body.userId || req.body.admin == true)
         if(!err)
             {
-                res.json("deleted successfully.");
+                res.status(200).json({message:"deleted successfully."});
             }
             else
             {
-                console.log(err);
+                res.status(400).json({message:"error"})
             }
     })
     }
@@ -54,11 +57,19 @@ exports.delete = (req, res, next)=>{
         [content,  id],
         (err, rows, fields) =>{
             if (!err) {
-                res.json("update successfully");
+                res.status.json("update successfully");
             } else {
                 console.log(err)
             }
         })
     })
-     
-     
+
+
+//db.query("UPDATE article SET article.commentaire = article.commentaire + 1 WHERE articleid=?";
+//[req.body.articleId],(err, result){
+    //if (err)res.status(400).json({ err});
+//}
+//)
+
+
+

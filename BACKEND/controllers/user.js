@@ -18,10 +18,10 @@ exports.signup = (req, res, next)=> {
                     lastname: req.body.lastname,
                     email: req.body.email,
                     password: hash,
-                    imageUrl:image,
+                    imageUrl: image,
                 }
-                let data = [ req.body.firstname, req.body.lastname, req.body.email. req.body.password];
-                db.query("INSERT INTO user ( firstname, lastname, email, password) VALUES (?, ?, ?, ?  )",
+                let data = [ req.body.firstname, req.body.lastname, req.body.email. req.body.password, req.body.image];
+                db.query("INSERT INTO user ( firstname, lastname, email, password, image) VALUES (?, ?, ?, ?, ?  )",
                  function (err, result) {
                     if (err)
                         throw err;
