@@ -4,23 +4,23 @@
 
     <form @submit.prevent="handleSubmit">
     
-    <h1 class="h3 mb-3 fw-normal">Please Login</h1>
+      <h1 class="h3 mb-3 fw-normal">Please Login</h1>
        
   
       <input type="email" class="form-control" v-model="email"  placeholder="name@example.com" require>
 
       <input type="password" class="form-control" v-model="password" placeholder="Password" required>
       
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
 
-     <div class="container_signup">
-      <p>
-        Vous n'avez pas de compte?
-        <router-link to="/signup">signup</router-link>.
-      </p>
-    </div>
+      <div class="container_signup">
+        <p>
+          Vous n'avez pas de compte?
+          <router-link to="/signup">signup</router-link>.
+        </p>
+      </div>
   
-  </form>
+    </form>
 </template>
 
 
@@ -40,20 +40,21 @@ export default {
     methods: {
       
        async handleSubmit () {
-         
-       await axios.post("/api/auth/login", {
+
+       await axios.post("/api/user/login", {
           email: this.email,
           password: this.password,
         })
         .then((res) => {
-          {
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("id", res.data.userId);
-            localStorage.setItem("isAdmin", res.data.isAdmin);
-          }
-            this.$router.push("/profileNav");
+              console.log(res);
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("id", res.data.userId);
+          localStorage.setItem("isAdmin", res.data.isAdmin);
+          
+          this.$router.push("/profileNav");
         })
         .catch((error) => {
+          console.log(error);
           alert("Authentification incorrect");
           this.error = error;
         });

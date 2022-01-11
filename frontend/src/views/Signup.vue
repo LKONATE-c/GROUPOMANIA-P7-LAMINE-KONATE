@@ -2,35 +2,37 @@
          <img  class="logo" src="../assets/icon-above-font.png"/>
 
 
-     <from @submit.prevent="handlesubmit">
+     <form @submit.prevent="handlesubmit">
     
-    <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
 
   
-      <input type="text" v-model="firstname" class="form-control"  placeholder="Firstname" aria-required="">
+        <input type="text" v-model="firstname" class="form-control"  placeholder="Firstname" aria-required="">
 
-      <input type="text" v-model="lastname" class="form-control"  placeholder="Lastname" required>
+        <input type="text" v-model="lastname" class="form-control"  placeholder="Lastname" required>
 
 
-      <input type="text" v-model="email"  class="form-control"  placeholder="name@example.com" required>
+        <input type="text" v-model="email"  class="form-control"  placeholder="name@example.com" required>
 
-      <input type="password" v-model="password"  class="form-control"  placeholder="Password" required>
+        <input type="password" v-model="password"  class="form-control"  placeholder="Password" required>
       
-    <button class="w-100 btn btn-lg btn-primary"    type="submit">Signup</button>
+        <button class="w-100 btn btn-lg btn-primary"    type="submit">Signup</button>
 
     
-    <div class="container_login">
-      <p>
-        Vous avez déjà un compte? <router-link to="/login">login</router-link>.
-      </p>
-    </div>
+        <div class="container_login">
+        <p>
+            Vous avez déjà un compte? <router-link to="/login">login</router-link>.
+        </p>
+        </div>
     
 
   
-     </from>
+     </form>
 
 </template>
 <script>
+import axios from "axios";
+
 export default {
     data() {
         return{
@@ -51,7 +53,7 @@ export default {
               console.table(data);
       try {
 
-            const res =await axios.post("/api/auth/signup", data);
+            const res =await axios.post("/api/user/signup", data);
             
             
         console.log(res);

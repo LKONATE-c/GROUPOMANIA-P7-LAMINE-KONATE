@@ -4,14 +4,19 @@ const db = require("../models/db");
 
 exports.getall  = (req, res, next)=>{
    
-    db.query("SELECT * from article", (err, rows, fields)=>{
-        if (err) res.status(400);json({ err });
-        res.status(200).json(result)
+    db.query("SELECT * from article", (err, result, fields)=>{
+        if (err) {
+            res.status(400).json(err);
+        
+        } else{
+            res.status(200).json(result)
+        }
+       
     })
 }
 
 exports.getone =  (req, res, next)=>{
-    db.query("SELECT * from article WHERE id =?",[req.params.id], (err, rows, fields)=>{
+    db.query("SELECT * from article WHERE id =?",[req.params.id], (err, result, fields)=>{
         if(!err)
             {
                 res.status(200).json(result);
@@ -40,7 +45,7 @@ exports.add = (req, res, next) =>{
 
 exports.delete =(req, res, next) =>{
     db.query("DELETE FROM article WHERE id =?",
-    [req.params.id], (err, rows, fields)=>{
+    [req.params.id], (err, result, fields)=>{
         if(!err)
             {
                 res.json("deleted successfully.");
@@ -55,7 +60,7 @@ exports.delete =(req, res, next) =>{
 exports.upadate = (req,res, next)=>{
     db.query("UPDATE SET article content = ?, image = ?, WHERE id = ?",
     [req.body.content, req.body.image, req.body.id],
-    (err, rows, fields) =>{
+    (err, result, fields) =>{
         if (!err) {
             res.json("update successfully");
         } else {

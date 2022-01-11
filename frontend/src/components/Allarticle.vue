@@ -31,8 +31,13 @@ export default {
     async fetchArticle() {
       
       try {
-        const { data } = await axios.get("/api/article");
-        this.articles = data;
+        const data  = await axios.get("/api/article/all");
+        data.forEach((article)=>{
+          axios.get(`/api/user/getone/${article.userid}`).then((res)=>{
+            article.user = res.data
+            this.articles.push(article)
+          })
+        })
       } catch (error) {
         if (error.status === 401) {
           this.$router.push("/login");

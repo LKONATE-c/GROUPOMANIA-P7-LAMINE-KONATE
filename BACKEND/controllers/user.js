@@ -8,6 +8,7 @@ const { json } = require("body-parser");
 exports.signup = (req, res, next)=> {
     db.query("SELECT * FROM user WHERE email=?",[req.body.email],
     (err,rows,fields) =>{
+        
         let user = result[0];
         if (!user) {
             bcrypt.hash(req.body.password,10)
@@ -101,10 +102,14 @@ exports.getall = (req, res, next) => {
 
 //récuperer par son id 
 exports.getone = (req,res, next) => {
-    db.query("SELECT * FROM user WHERE id=? ",[req.body.id],
+    db.query("SELECT * FROM user WHERE id=? ",[req.params.id],
     function (err, result) {
-        if (err) res.status(400).json ({ err });
-        res.status(200).json(result)
+        if (err) {
+            res.status(400).json(err);
+        }else{
+            res.status(200).json(result)
+        }
+      
     })
 }
 

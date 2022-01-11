@@ -6,7 +6,7 @@ import axios from "axios"
 
 axios.defaults.baseURL = "http://localhost:3001";
 
-axios.interceptors.request.use((config) => {
+/*axios.interceptors.request.use((config) => {
   config.headers.common = {
     ...config.headers.common,
     Authorization: "Bearer " + localStorage.getItem("token"),
@@ -27,7 +27,7 @@ axios.interceptors.response.use(
     }
     return Promise.reject(error);
   }
-);
+);*/
 
 
 createApp(App).use(store).use(router).mount('#app')
