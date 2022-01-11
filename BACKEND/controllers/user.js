@@ -39,8 +39,9 @@ exports.signup = (req, res, next)=> {
 // se connecter 
 exports.login = (req, res, next) => {
     db.query("SELECT * FROM user WHERE email=?",[req.body.email],
-    (err,rows,fields) =>{
+    (err,result,fields)  =>{
         let user = result[0];
+      
         if (!user) return res.statuts(401).json({ error:'incorrect email'});
         bcrypt.compare(req.body.password,user.password)
         .then(valid => {
@@ -54,9 +55,9 @@ exports.login = (req, res, next) => {
                     'RANDOM_TOKEN_SECRET_78190_44600',
                     { expiresIn: '24h' },
 
-                ),
-
+                )
             })
+            db.query("INSERT INTO connection (userid) VALUES (?)",[user.id])
         })
         .catch(error => res.status(500).json({message:'authentication error'}))
 })

@@ -7,9 +7,7 @@ const mysql = require('mysql2');
 //import des routes
 const ArticleRoutes = require("./routes/article");
 const UserRoutes = require("./routes/user");
-
 const CommentaireRoutes = require("./routes/commentaire");
-const LikesRoutes = require("./routes/likes");
 const authRoutes = require('./routes/auth');
 
 
@@ -36,7 +34,7 @@ app.use("/api/article", ArticleRoutes);
 
 app.use("/api/user", UserRoutes);
 app.use("/api/commentaire",CommentaireRoutes);
-app.use("/api/likes",LikesRoutes);
+
 app.use('/api/auth', authRoutes);
 
 

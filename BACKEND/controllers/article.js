@@ -24,13 +24,15 @@ exports.getone =  (req, res, next)=>{
 } 
 
 exports.add = (req, res, next) =>{
-    let data = [ req.body.content, req.body.image, req.body.like];
-    db.query("INSERT INTO article ( content, image, like) VALUES (?, ?, ?  )",
-    data, (err,rows,fields) =>{
+    let data = [ req.body.content, req.body.image, req.body.userid ];
+   console.log(req.body)
+    db.query("INSERT INTO article ( content, image,userid) VALUES (?, ?, ?  )",
+    data, (err,results,fields) =>{
         if(!err){
             res.json(results);
         }else {
             console.log(err);
+            res.json(err);
         }
     })
 
