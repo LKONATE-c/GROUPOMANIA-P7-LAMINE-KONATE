@@ -1,57 +1,41 @@
 <template>
-  <div class="article">
-      <div class="author">
-        <img class="user-picture" src="" alt="">
-          <p>userlastname</p>
-          <p>USERfirstname</p>
-          <p> CREATE-date</p>
-      </div>
-
-            <hr style="color:black"> 
-
-      <div class="article content">
-            <p class="content"></p>
-            <img  class=""  src="" alt="" >
-      
-      </div>
-      <button class="addcommentary" type="input">Add a commentarry</button>
-         <button type="button" class="deletebtn">Delete</button>
-    
-
+  <div class="card">
+    <h2>{{ title }}</h2>
+    <p>{{ content }}</p>
+    <div>
+      <router-link :to="`/article/${id}`">
+        <img :src="image" />
+      </router-link>
+    </div>
+    <p class="commDe">Publié par {{ user.firstname }} {{ user.lastname }}</p>
+    <router-link :to="`/article/${id}`">Commentary ...</router-link>
   </div>
 </template>
 
 <script>
 export default {
-   name:"Article"
-}
+  props: ["title", "content", "user", "id", "image"],
+};
 </script>
 
 <style scoped>
- .deletebtn{
-    color: white;
-    font-size: 15px;
-    border: none;
-    background-color: red;
-    font-size: 16px;
-    padding: 5px;
-    text-align: center;
-    text-decoration: none;
-    margin: 4px;
-    border-radius: .2em;
-    cursor: pointer;
-   }
-.addcommentary{
-    color: white;
-    font-size: 15px;
-    border: none;
-    background-color: #008CBA;
-    font-size: 16px;
-    padding: 5px;
-    text-align: center;
-    text-decoration: none;
-    margin: 4px;
-    border-radius: .2em;
-    cursor: pointer;
-   }
+.card {
+  margin-left: 20px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  padding: 1px 30px 30px 30px;
+  background-color: white;
+  border-radius: 10px;
+}
+.commDe {
+  font-style: italic;
+}
+img {
+  max-width: 60%;
+}
+@media screen and (max-width: 1130px) {
+  img {
+    max-width: 90%;
+  }
+}
 </style>

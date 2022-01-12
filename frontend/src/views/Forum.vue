@@ -1,81 +1,64 @@
- 
-  <template>
-    <div class="post-article">
-        <div class="user">
-        <p>userlastname</p>
-        <p>USERfirstname</p>
-       
+ <template>
+   
+    <div id="container">
+      <div class="allarticle">
+        <allArticle />
       </div>
-      
-        <input type="text" 
-        placeholder=" Write something...">
-    
-     
-        <img class="article-image" src="" alt="">
-      
-        <input class="picture" type="button" value="add a picture">
-        <button class="button-article" type="submit">Send article</button>
-     
-
+      <div class="newarticle">
+        <newArticle />
+      </div>
     </div>
-
-  </template>
-
-
-  <script>
-      export default{
-
-    name:"Forum"
-}
-  </script>
-
-  <style>
-
-    .post-article{
-      border: 1px solid black;
-
-    }
-    
-    .user{
-      font-size: 10px;
-      display: flex;
-    }
-   
-   .button-article{
-    color: white;
-    font-size: 15px;
-    border: none;
-    background-color: #008CBA;
-    font-size: 16px;
-    padding: 5px;
-    text-align: center;
-    text-decoration: none;
-    margin: 4px;
-    border-radius: .2em;
-    cursor: pointer;
-   }
-
-   .picture{
-    color: white;
-    font-size: 15px;
-    border: none;
-    background-color: #00ba4d;
-    font-size: 16px;
-    padding: 5px;
-    text-align: center;
-    text-decoration: none;
-    margin: 4px;
-    border-radius: .2em;
-    cursor: pointer;
-   }
-   
-
-   @media screen and (max-width: 480px) {
-     
-     
-      
-      
-     
-   }
-  </style>
   
+  </template>
+//----------------------------------------------------------------------------------------------------------------------
+<script>
+import allArticle from "../components/allArticle";
+import newArticle from "../components/newArticle";
+export default {
+  name: "Forum",
+  components: {
+    allArticle,
+    newArticle,
+  },
+  data() {
+    return {
+      token: "",
+      allArticle: [],
+    };
+  },
+};
+</script>
+//----------------------------------------------------------------------------------------------------------------------
+<style scoped>
+
+#container {
+  display: flex;
+  justify-content: space-around;
+}
+.allarticle {
+  flex: 2;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.newarticle {
+  flex: 1;
+  max-width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media screen and (max-width: 1130px) {
+  #container {
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .allarticle{
+    width: 100%;
+  }
+  .newarticle {
+    width: 100%;
+  }
+}
+</style>

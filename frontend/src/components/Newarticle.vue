@@ -1,5 +1,5 @@
 <template>
-  <div class="newarticle">
+  <div class="newArticle">
     <form  @submit.prevent="buttonNewArticle">
       <h3>New article</h3>
       <div>
@@ -7,7 +7,7 @@
             <input
             type="title"
             id="title"
-            placeholder="ici votre titre"
+            placeholder="here your title"
             v-model="title"
             />
       </div>

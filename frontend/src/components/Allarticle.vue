@@ -17,10 +17,10 @@
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
-import cardarticle from "./Cardarticle";
+import cardArticle from "./cardArticle";
 export default {
-  name: "Allarticle",
-  components: { cardarticle },
+  name: "allArticle",
+  components: { cardArticle },
   data() {
     return {
       articles: [],

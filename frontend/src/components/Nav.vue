@@ -11,6 +11,9 @@
         <li class="nav-item">
           <router-link to="/Signup" class="nav-link">Signup</router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/Profile" class="nav-link">Profile</router-link>
+        </li>
       </ul> 
     </div>
   </div>

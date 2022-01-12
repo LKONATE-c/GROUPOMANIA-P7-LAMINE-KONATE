@@ -3,7 +3,7 @@ import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
 import Forum from '@/views/Forum.vue'
-import ProfileNav from '@/views/ProfileNav.vue'
+import Profile from '@/views/Profile.vue'
 
 
 
@@ -29,9 +29,9 @@ const routes = [
   name:'Forum',
    component: Forum
   },
-  {path:'/ProfileNav',
-  name:'ProfileNav',
-   component: ProfileNav
+  {path:'/Profile',
+  name:'Profile',
+   component: Profile
   },
 
   
