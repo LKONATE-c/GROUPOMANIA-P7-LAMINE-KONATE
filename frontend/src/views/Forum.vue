@@ -10,7 +10,7 @@
     </div>
   
   </template>
-//----------------------------------------------------------------------------------------------------------------------
+
 <script>
 import allArticle from "../components/allArticle";
 import newArticle from "../components/newArticle";
@@ -28,7 +28,7 @@ export default {
   },
 };
 </script>
-//----------------------------------------------------------------------------------------------------------------------
+
 <style scoped>
 
 #container {

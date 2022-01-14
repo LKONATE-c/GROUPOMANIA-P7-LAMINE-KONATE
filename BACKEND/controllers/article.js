@@ -68,3 +68,15 @@ exports.upadate = (req,res, next)=>{
         }
     })
 }
+exports.getArticleByUser = (req,res)=>{
+    db.query("SELECT * FROM article WHERE userid= ?",[req.params.userid],
+    (err,result,filed) =>{
+        if(!err) {
+            res.json(result);
+        }else {
+            res.json(err)
+        }
+    }
+    
+    )
+}

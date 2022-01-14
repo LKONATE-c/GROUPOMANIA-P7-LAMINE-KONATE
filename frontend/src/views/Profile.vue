@@ -8,20 +8,17 @@
         <cardArticle
           :key="article.id"
           v-for="article of articles"
-          :title="article.title"
-          :content="article.content"
-          :user="article.User"
-          :image="article.image"
-          :id="article.id"
+          :article="article"
+          :user="user"
         />
       </div>
       <div id="profil">
         <!-- Email, Nom et prénom du profil -->
-        <div v-if="dataProfile">
-          <p>E-mail :{{ " " + dataProfile.email }}</p>
+        <div v-if="user">
+          <p>E-mail :{{ " " + user.email }}</p>
           <p>
             Firstname and  Lastname :
-            {{ dataProfile.firstname + " " + dataProfile.lastname }}
+            {{ user.firstname + " " + user.lastname }}
           </p>
           <hr />
         </div>
@@ -32,7 +29,7 @@
             <label for="lastname">Lastname</label><br />
             <input
               required
-              v-model="lastname"
+              v-model="user.lastname"
               type="text"
               name="lastName"
               id="lastname-input"
@@ -43,7 +40,7 @@
             <label for="firstname">Firstname</label><br />
             <input
               required
-              v-model="firstname"
+              v-model="user.firstname"
               type="text"
               name="firstname"
               id="firstname-input"
@@ -59,11 +56,15 @@
         <button class="deletebtn" type="submit" @click.prevent="deleteProfile">
           Supprimer mon compte
         </button>
+        <hr/>
+        <P> Follow the news on our forum
+              <router-link to="/forum">GO Forum</router-link>
+        </P>
       </div>
     </div>
   </div>
 </template>
-//----------------------------------------------------------------------------------------------------------------------
+
 <script>
 import axios from "axios";
 import cardArticle from "../components/cardArticle";
@@ -81,33 +82,26 @@ export default {
       userId: "",
       message: "",
       dataProfile: null,
-      posts: [],
+      articles: [],
       email: "",
       firstname: "",
       lastname: "",
     };
   },
+  computed:{
+    user(){
+      return this.$store.getters["user"]
+    }
+  },
   methods: {
-    loadProfile() {
-      let userId = localStorage.getItem("id");
+    
+    getArticlesProfile() {
+     
       axios
-        .get("/api/user" + userId)
+        .get("/api/article/all/" + this.user.id  )
         .then((res) => {
-          this.dataProfile = res.data;
-        })
-        .catch((error) => {
-          console.log({ error });
-          if (error.status === 401) {
-            this.$router.push("/login");
-          }
-        });
-    },
-    allArticlesProfile() {
-      let userId = localStorage.getItem("id");
-      axios
-        .get("/api/article/all" + userId + "/articles")
-        .then((res) => {
-          this.posts = res.data;
+          console.log(res.data)
+          this.articles = res.data;
         })
         .catch((error) => {
           console.log({ error });
@@ -117,49 +111,20 @@ export default {
         });
     },
     updateProfile() {
-      let userId = localStorage.getItem("id");
-      const data = {
-        firstname: this.firstname,
-        lastname: this.lastname,
-      };
-      axios
-        .put("/api/user" + userId, data)
-        .then((res) => {
-          alert("your profile has been updated !");
-          this.dataProfile = res.data.user;
-        })
-        .catch((error) => {
-          this.error = error;
-          if (error.status === 401) {
-            this.$router.push("/login");
-          }
-        });
+
     },
-    async deleteProfile() {
-      const isConfirm = await confirm(
-        "Confirm the deletion of the profile ?"
-      );
-      
-      if (!isConfirm) {
-        return;
-      }
-      let userId = localStorage.getItem("id");
-      axios
-        .delete("/api/user" + userId)
-        .then(() => {
-          alert("Your account is deleted !");
-          this.$router.push("/signup");
-        })
-        .catch((error) => {
-         
-          alert("Profile could not be deleted !");
-        });
+    deletedProfile(){
+
     },
+
+    
+    
   },
+  
   mounted() {
     /*appeler les fonctions quand l'html sera pret*/
-    this.loadProfile();
-    this.allArticlesProfile();
+   
+    this.getArticlesProfile();
   },
 };
 </script>

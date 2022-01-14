@@ -43,7 +43,7 @@ exports.login = (req, res, next) => {
     (err,result,fields)  =>{
         let user = result[0];
       
-        if (!user) return res.statuts(401).json({ error:'incorrect email'});
+        if (!user) return res.status(401).json({ error:'incorrect email'});
         bcrypt.compare(req.body.password,user.password)
         .then(valid => {
             if (valid) {
@@ -56,7 +56,8 @@ exports.login = (req, res, next) => {
                     'RANDOM_TOKEN_SECRET_78190_44600',
                     { expiresIn: '24h' },
 
-                )
+                ),
+                user:user
             })
             db.query("INSERT INTO connection (userid) VALUES (?)",[user.id])
         })

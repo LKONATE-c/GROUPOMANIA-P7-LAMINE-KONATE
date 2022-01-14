@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
-import Forum from '@/views/Forum.vue'
 import Profile from '@/views/Profile.vue'
-
+import Onearticle from '@/views/Onearticle.vue'
+import Forum from '@/views/Forum.vue'
 
 
 
@@ -25,16 +25,19 @@ const routes = [
    component: Signup
   },
   
-  {path:'/Forum',
-  name:'Forum',
-   component: Forum
-  },
+ 
   {path:'/Profile',
   name:'Profile',
    component: Profile
   },
-
-  
+  {path:'/Onearticle',
+  name:'Onearticle',
+   component: Onearticle
+  },
+  {path:'/Forum',
+  name:'Forum',
+   component: Forum
+  },
 
   
 ]

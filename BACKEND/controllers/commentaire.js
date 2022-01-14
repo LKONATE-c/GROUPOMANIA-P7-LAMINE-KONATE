@@ -1,15 +1,22 @@
 const db = require("../models/db");
 
 exports.getall  = (req, res, next)=>{
+    const articleId = req.params.id
    
-    db.query("SELECT * from commentaire", (err, rows, fields)=>{
-        if (err) res.status(400);json({ err });
-        res.status(200).json(result)
+    db.query("SELECT * from commentaire  WHERE commentaire.article_id = ${articleId}",
+     (err, rows, fields)=>{
+        
+        if (err) {
+            res.status(400).json(err);
+        
+        } else{
+            res.status(200).json(result)
+        }
     })
 }
 
 exports.getone = ("/commentaire/:id", (req, res, next)=>{
-    db.query("SELECT * from commentaire WHERE ID =?",[req.params.id], (err, res, next)=>{
+    db.query("SELECT * from commentaire WHERE ID =?",[req.params.id], (err, res, field)=>{
         if(!err)
             {
                 res.status(200).json(result);
@@ -25,7 +32,7 @@ exports.getone = ("/commentaire/:id", (req, res, next)=>{
 exports.add = ("/", (req, res, next) =>{
     let data = [ req.body.content, req.body.userid, req.body.articleid,];
     db.query("INSERT INTO commentaire ( content, userid, articleid) VALUES (?, ?, ?)",
-    data, (err,res,next) =>{
+    data, (err,res,field) =>{
         if(!err){
             res.status(200).json({ message:"content add"});
         }else {

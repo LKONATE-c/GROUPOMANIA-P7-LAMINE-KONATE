@@ -41,23 +41,12 @@ export default {
       
        async handleSubmit () {
 
-       await axios.post("/api/user/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then((res) => {
-              console.log(res);
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("id", res.data.userId);
-          localStorage.setItem("isAdmin", res.data.isAdmin);
-          
-          this.$router.push("/profileNav");
-        })
-        .catch((error) => {
-          console.log(error);
-          alert("Authentification incorrect");
-          this.error = error;
-        });
+       this.$store.dispatch("login",{
+         email:this.email,
+         password:this.password
+       }).then(()=>{
+         this.$router.push("/profile")
+       })
 
       }
     }

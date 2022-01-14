@@ -14,6 +14,9 @@
         <li class="nav-item">
           <router-link to="/Profile" class="nav-link">Profile</router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/Forum" class="nav-link">Forum</router-link>
+        </li>
       </ul> 
     </div>
   </div>

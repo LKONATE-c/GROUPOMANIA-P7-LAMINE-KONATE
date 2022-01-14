@@ -1,20 +1,20 @@
 <template>
   <div class="card">
-    <h2>{{ title }}</h2>
-    <p>{{ content }}</p>
+    <h2>{{ article.title }}</h2>
+    <p>{{ article.content }}</p>
     <div>
-      <router-link :to="`/article/${id}`">
-        <img :src="image" />
+      <router-link :to="`/article/${article.id}`">
+        <!--<img :src="image" />-->
       </router-link>
     </div>
     <p class="commDe">Publié par {{ user.firstname }} {{ user.lastname }}</p>
-    <router-link :to="`/article/${id}`">Commentary ...</router-link>
+    <router-link :to="`/article/${article.id}`">Commentary ...</router-link>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["title", "content", "user", "id", "image"],
+  props: ["article", "user" ]
 };
 </script>
 
