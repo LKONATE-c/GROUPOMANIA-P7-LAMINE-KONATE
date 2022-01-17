@@ -39,136 +39,63 @@
     
   </div>
 </template>
-//----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
 import NewCommentaire from "../components/Newcommentaire";
+import cardArticle from "../components/cardArticle";
+
 export default {
-  name: "Onearticle",
+  name:"Onearticle",
   components: {
     NewCommentaire,
+    cardArticle,
   },
-  data() {
+  
+  
+  data () {
     return {
-      post: null,
-      comments: [],
-      me: 0,
-      isAdmin: false,
-    };
+      article: null,
+      commentaire: [],
+       isAdmin: false,
+
+    }
+
+  },
+  computed:{
+    user(){
+      return this.$store.getters["user"]
+    }
   },
   methods: {
-    // Pour charger l'article selectionné
-    async fetchPost() {
-      try {
-        const { data } = await axios.get("/api/article/" + this.$route.params.id);
-        this.article = data;
-      } catch (error) {
-        console.log("error");
-      }
-    },
-    async refreshComments() {
-      await this.fetchCommentaires();
-      this.$refs.commentaires.scrollIntoView({
-        behavior: "smooth",
-      });
-    },
-    // Pour charger les commentaires de l'article
-    async fetchCommentaires() {
-      try {
-        const { data } = await axios.get(
-          "/api/article/" + this.$route.params.id + "/commentaires"
-        );
-        this.comments = data;
-      } catch (error) {
-        if (error.status === 401) {
-          this.$router.push("/login");
-        }
-      }
-    },
-    // Pour delete le commentaire séléctionné
-    async deleteCommentaire(id) {
-      console.log("delete commentaire id: ", id);
-      const isConfirm = await confirm(
-        "Do you confirm the deletion of the comment? "
-      );
-      console.log({ isConfirm });
-      if (!isConfirm) {
-        return;
-      }
+
+    getonearticle() {
       axios
-        .delete("/api/article/" + this.$route.params.id + "/commentaire/" + id)
-        .then(() => {
-          alert("Your comment has been deleted !");
-          document.location.reload();
+      .get("/api/article/getone/" + this.$route.params.id)
+      .then((res) => {
+          console.log(res.data)
+          this.article = res.data;
         })
-        .catch((error) => {
+          .catch((error) => {
           console.log({ error });
+          if (error.status === 401) {
+            this.$router.push("/login");
+          }
         });
-    },
-    // Pour delete l'article séléctionné
-    async deleteArticle(id) {
-      console.log("delete article id: ", id);
-      const isConfirm = await confirm(
-        "Do you confirm the deletion of the article ?"
-      );
-      console.log({ isConfirm });
-      if (!isConfirm) {
-        return;
-      }
-      axios
-        .delete("/api/article/" + this.$route.params.id)
-        .then(() => {
-          alert("Votre post a bien été supprimé !");
-          this.$router.push("/");
-        })
-        .catch((error) => {
-          console.log({ error });
-        });
-    },
+         
+
+    }
+    
   },
-  mounted() {
-    this.fetchArticle();
-    this.fetchCommentaires();
-    this.me = Number(localStorage.getItem("id"));
-    this.isAdmin = localStorage.getItem("isAdmin") === "true";
+  mounted(){
+   
+    this.getonearticle(); 
+   
+
   },
-};
+    
+  
+}
 </script>
-//----------------------------------------------------------------------------------------------------------------------
-<style scoped>
-.the-article {
-  margin: 30px 20px 30px 20px;
-  padding: 1px 0px 30px 0px;
-  background-color: #d2fafa;
-  border-radius: 10px;
-}
-.card {
-  margin: 10px 20px 20px 20px;
-  padding: 1px 30px 30px 30px;
-  background-color: white;
-  border-radius: 10px;
-}
-button {
-  width: 120px;
-  cursor: pointer;
-  border: unset;
-  font-size: 1em;
-  box-shadow: 5px 5px 15px -3px rgb(0 0 0 / 50%);
-  background: rgb(255, 61, 61);
-  margin-top: 10px;
-  transition: 0.3s;
-  color: white;
-  font-weight: bold;
-}
-.commDe {
-  font-style: italic;
-}
-img {
-  max-width: 60%;
-}
-@media screen and (max-width: 1130px) {
-  img {
-    max-width: 90%;
-  }
-}
-</style>
+
+
+

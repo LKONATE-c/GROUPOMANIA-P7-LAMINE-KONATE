@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ctrlcommentaire = require('../controllers/commentaire');
+const multer = require('../middlewares/multer-config');
 
 
 router.get("/all",ctrlcommentaire.getall);

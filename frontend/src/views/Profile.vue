@@ -1,8 +1,9 @@
-<template>
+ <template>
   <div>
     <h1>My PROFILE</h1>
     <div id="container">
       <!-- ICI ajouter de quoi afficher les posts du profil -->
+     <!--<div @click="showarticle" class="les-Posts">-->
       <div class="les-Posts">
         <h3>My ITEMS</h3>
         <cardArticle
@@ -110,6 +111,9 @@ export default {
           }
         });
     },
+    //showarticle() {
+      //this.$router.push("/Onearticle");
+    //},
     updateProfile() {
 
     },
@@ -125,10 +129,11 @@ export default {
     /*appeler les fonctions quand l'html sera pret*/
    
     this.getArticlesProfile();
+    //this. showarticle();
   },
 };
 </script>
-//----------------------------------------------------------------------------------------------------------------------
+
 <style scoped>
 
 #container {
@@ -224,4 +229,4 @@ hr {
     width: 100%;
   }
 }
-</style>
+</style>-->

@@ -1,35 +1,78 @@
- <template>
+<template>
    
-    <div id="container">
-      <div class="allarticle">
-        <allArticle />
-      </div>
-      <div class="newarticle">
-        <newArticle />
-      </div>
+  <div id="container">
+    <div class="allarticle">
+      <cardArticle v-for="objet in allArticles"
+        :key="objet.article.id"
+        :article="objet.article"
+        :user="objet.user"
+      />
     </div>
+    <div class="newarticle">
+      <newArticle />
+    </div>
+  </div>
   
-  </template>
-
+</template>
 <script>
-import allArticle from "../components/allArticle";
+import axios from "axios";
+import cardArticle from "../components/cardArticle.vue";
 import newArticle from "../components/newArticle";
 export default {
   name: "Forum",
   components: {
-    allArticle,
+    cardArticle,
     newArticle,
   },
   data() {
     return {
-      token: "",
-      allArticle: [],
+      
+      allArticles: [],
     };
+
   },
+  computed:{
+    user(){
+      return this.$store.getters["user"]
+    }
+  },
+  methods: {
+
+    
+    getallarticle() {
+      axios
+      .get("/api/article/all/" )
+      .then((res) => {
+          console.log(res.data)
+          res.data.forEach((article)=>{
+            axios.get("/api/user/getone/"+ article.userid).then((res)=>{
+              this.allArticles.push({
+                article:article,
+                user:res.data,
+              })
+            })
+          })
+        })
+          .catch((error) => {
+          console.log({ error });
+          if (error.status === 401) {
+            this.$router.push("/login");
+          }
+        });
+         
+
+    }
+    
+  },
+  mounted(){
+    this.getallarticle();
+  }
 };
 </script>
 
-<style scoped>
+
+
+<style>
 
 #container {
   display: flex;

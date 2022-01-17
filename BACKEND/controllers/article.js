@@ -1,4 +1,5 @@
 
+
 const db = require("../models/db");
 
 
@@ -19,7 +20,7 @@ exports.getone =  (req, res, next)=>{
     db.query("SELECT * from article WHERE id =?",[req.params.id], (err, result, fields)=>{
         if(!err)
             {
-                res.status(200).json(result);
+                res.status(200).json(result[0]);
             }
             else
             {
@@ -80,3 +81,4 @@ exports.getArticleByUser = (req,res)=>{
     
     )
 }
+
