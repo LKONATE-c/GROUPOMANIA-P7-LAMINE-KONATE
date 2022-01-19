@@ -1,6 +1,6 @@
-<template>
+ <template>
   <div class="newArticle">
-    <form  @submit.prevent="buttonNewArticle">
+   
       <h3>New article</h3>
       <div>
         <label for="title">Title :</label><br />
@@ -24,8 +24,8 @@
         <!-- <label for="File" class="file">(Image facultative)</label> -->
         <input type="file" id="file" ref="file" @change="selectFile()" />
       </div>
-      <button type="submit" @click.prevent="buttonNewArticle">Envoyer</button>
-    </form>
+      <button type="submit" @click.prevent="addNewArticle">Envoyer</button>
+    
   </div>
 </template>
 //----------------------------------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ export default {
   name: "newArticle",
   data() {
     return {
-      userId: localStorage.getItem("userId"),
+      userId: "",
       token: "",
       title: "",
       content: "",
@@ -43,13 +43,21 @@ export default {
     };
   },
   methods: {
+    addNewArticle:function() {
+      this.$emit('create-new-article',this.buttonNewArticle);
+    },
+
+
     selectFile() {
       this.file = this.$refs.file.files[0];
     },
     buttonNewArticle() {
+
+     
       const data = new FormData();
       //avec image
       if (this.file !== null) {
+
         data.append("userId", this.userId);
         data.append("title", this.title);
         data.append("content", this.content);

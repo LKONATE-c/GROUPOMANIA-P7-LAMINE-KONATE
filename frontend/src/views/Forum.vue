@@ -9,7 +9,7 @@
       />
     </div>
     <div class="newarticle">
-      <newArticle />
+      <newArticle v-on:create-new-article=" getallarticle($event)" />
     </div>
   </div>
   
@@ -36,8 +36,9 @@ export default {
       return this.$store.getters["user"]
     }
   },
-  methods: {
-
+  methods: { 
+    
+    
     
     getallarticle() {
       axios
@@ -59,10 +60,10 @@ export default {
             this.$router.push("/login");
           }
         });
+        
          
-
-    }
-    
+    },
+  
   },
   mounted(){
     this.getallarticle();
