@@ -1,6 +1,6 @@
  <template>
   <div class="newArticle">
-   
+    
       <h3>New article</h3>
       <div>
         <label for="title">Title :</label><br />
@@ -28,7 +28,7 @@
     
   </div>
 </template>
-//----------------------------------------------------------------------------------------------------------------------
+
 <script>
 import axios from "axios";
 export default {
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     addNewArticle:function() {
-      this.$emit('create-new-article',this.buttonNewArticle);
+      this.$emit('createarticle',this.buttonNewArticle);
     },
 
 
@@ -79,7 +79,7 @@ export default {
   },
 };
 </script>
-//----------------------------------------------------------------------------------------------------------------------
+
 <style scoped>
 .newarticle {
   flex: 1;

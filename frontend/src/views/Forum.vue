@@ -9,7 +9,7 @@
       />
     </div>
     <div class="newarticle">
-      <newArticle v-on:create-new-article=" getallarticle($event)" />
+      <newArticle v-on:createarticle="  createArticle ($event)" />
     </div>
   </div>
   
@@ -36,6 +36,12 @@ export default {
       return this.$store.getters["user"]
     }
   },
+  createArticle: {
+      title:"",
+      content:"",
+      userid:"",
+  },
+
   methods: { 
     
     
@@ -63,10 +69,22 @@ export default {
         
          
     },
+
+    createArticle() {
+      axios
+       .post("/api/article/", this.data)
+      .then((res) =>{
+        console.log(res.data)
+       
+      })
+     
+     
+    }
   
   },
   mounted(){
     this.getallarticle();
+   
   }
 };
 </script>
