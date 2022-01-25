@@ -14,6 +14,8 @@
             Supprimer
           </button>
         </div>
+        <div class="update">
+        </div>
         <!-- pour poster un commentaire -->
         <newcommentaire @refresh="refreshCommentaire" :id="article.id"></newcommentaire>
       </div>

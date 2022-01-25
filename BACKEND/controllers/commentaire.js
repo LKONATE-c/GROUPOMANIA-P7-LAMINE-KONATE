@@ -72,11 +72,18 @@ exports.delete = (req, res, next)=>{
     })
 
 
-//db.query("UPDATE article SET article.commentaire = article.commentaire + 1 WHERE articleid=?";
-//[req.body.articleId],(err, result){
-    //if (err)res.status(400).json({ err});
+//exports.getall = (req, res, next)=> {
+    //db.query("SELECT * from commentaire", (err, result, fields)=>{
+        //if (err) {
+            //res.status(400).json(err);
+        
+        //} else{
+            //res.status(200).json(result)
+        //}
+       
+    //})
 //}
-//)
+
 
 
 

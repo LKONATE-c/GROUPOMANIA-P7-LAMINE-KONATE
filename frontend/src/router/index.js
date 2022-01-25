@@ -30,7 +30,7 @@ const routes = [
   name:'Profile',
    component: Profile
   },
-  {path:'/article/:id',
+  {path:'/article/:articleid',
   props:true,
   name:'Onearticle',
    component: Onearticle

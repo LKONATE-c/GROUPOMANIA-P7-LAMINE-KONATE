@@ -111,9 +111,9 @@ export default {
           }
         });
     },
-    //showarticle() {
-      //this.$router.push("/Onearticle");
-    //},
+    showarticle() {
+      this.$router.push("/Onearticle");
+    },
     updateProfile() {
 
     },

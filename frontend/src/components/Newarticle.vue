@@ -44,38 +44,16 @@ export default {
   },
   methods: {
     addNewArticle:function() {
-      this.$emit('createarticle',this.buttonNewArticle);
+      this.$emit('createarticle',{
+        title:this.title,
+        content:this.content,
+        image:"url",
+      });
     },
 
 
-    selectFile() {
-      this.file = this.$refs.file.files[0];
-    },
-    buttonNewArticle() {
-
-     
-      const data = new FormData();
-      //avec image
-      if (this.file !== null) {
-
-        data.append("userId", this.userId);
-        data.append("title", this.title);
-        data.append("content", this.content);
-        data.append("image", this.file, this.file.name);
-        //sans image
-      } else {
-        data.append("userId", this.userId);
-        data.append("title", this.title);
-        data.append("content", this.content);
-      }
-      axios
-        .post("/api/article/", data)
-        .then(() => {
-          alert("Your message has been sent !");
-          window.location.reload();
-        })
-        .catch(console.error());
-    },
+   
+    
   },
 };
 </script>

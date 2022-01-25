@@ -30,12 +30,19 @@ exports.getone =  (req, res, next)=>{
 } 
 
 exports.add = (req, res, next) =>{
-    let data = [ req.body.content, req.body.image, req.body.userid ];
+    let data = [ req.body.content, req.body.image, req.body.userid, req.body.title ];
    console.log(req.body)
-    db.query("INSERT INTO article ( content, image,userid) VALUES (?, ?, ?  )",
-    data, (err,results,fields) =>{
+    db.query("INSERT INTO article ( content, image,userid, title) VALUES (?, ?, ?, ?  )",
+    data, (err,result,fields) =>{
         if(!err){
-            res.json(results);
+            const article= {
+                id:result.insertId,
+                title:req.body.title,
+                content:req.body.content,
+                image:req.body.image,
+                userid:req.body.userid,
+            }
+            res.json(article);
         }else {
             console.log(err);
             res.json(err);
