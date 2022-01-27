@@ -8,7 +8,7 @@
         <!-- <img src="http://localhost:3001/images/monimage.png"> -->
         <div>
           <button
-            v-if="article.Userid === me || isAdmin"
+            v-if="article.Userid === article.Userid || isAdmin"
             @click.prevent="deletePost(article.id)"
           >
             Supprimer

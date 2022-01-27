@@ -3,8 +3,8 @@
     <h1>My PROFILE</h1>
     <div id="container">
       <!-- ICI ajouter de quoi afficher les posts du profil -->
-     <!--<div @click="showarticle" class="les-Posts">-->
-      <div class="les-Posts">
+     <div @click="showarticle" class="les-Posts">
+      <!--<div class="les-Posts">-->
         <h3>My ITEMS</h3>
         <cardArticle
           :key="article.id"
