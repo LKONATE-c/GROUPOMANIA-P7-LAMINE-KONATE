@@ -1,7 +1,9 @@
 <template>
   <div class="card">
+    <!--<router-link :to="`/article/${article.id}`">-->
     <h2>{{ article.title }}</h2>
     <p>{{ article.content }}</p>
+     <!--</router-link>-->
     <div>
       <router-link :to="`/article/${article.id}`">
         <!--<img :src="image" />-->

@@ -10,7 +10,7 @@ const auth = require("../middlewares/auth");
 router.get("/all",ctrlarticle.getall);
 router.get("/getone/:id",ctrlarticle.getone);
 router.post("/",ctrlarticle.add);
-router.delete("/article/:id",ctrlarticle.delete);
+router.delete("/:id",ctrlarticle.delete);
 router.put('/update',ctrlarticle.delete);
 router.get('/all/:userid',ctrlarticle.getArticleByUser);
 

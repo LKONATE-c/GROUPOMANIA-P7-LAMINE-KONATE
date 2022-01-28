@@ -3,13 +3,14 @@
     <h1>My PROFILE</h1>
     <div id="container">
       <!-- ICI ajouter de quoi afficher les posts du profil -->
-     <div @click="showarticle" class="les-Posts">
-      <!--<div class="les-Posts">-->
+   <div  class="les-Posts">
+        <!--<div class="les-Posts">-->
         <h3>My ITEMS</h3>
         <cardArticle
           :key="article.id"
           v-for="article of articles"
           :article="article"
+          @click="showarticle(article.id)"
           :user="user"
         />
       </div>
@@ -111,8 +112,8 @@ export default {
           }
         });
     },
-    showarticle() {
-      this.$router.push("/Onearticle");
+    showarticle(id) {
+    this.$router.push("/article/"+ id);
     },
     updateProfile() {
 

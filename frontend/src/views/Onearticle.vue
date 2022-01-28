@@ -8,8 +8,8 @@
         <!-- <img src="http://localhost:3001/images/monimage.png"> -->
         <div>
           <button
-            v-if="article.Userid === article.Userid || isAdmin"
-            @click.prevent="deletePost(article.id)"
+            v-if="article.userid === user.id || isAdmin"
+            @click.prevent="deleteArticle(article.id)"
           >
             Supprimer
           </button>
@@ -72,7 +72,7 @@ export default {
 
     getonearticle() {
       axios
-      .get("/api/article/getone/" + this.$route.params.id)
+      .get("/api/article/getone/" + this.$route.params.articleid)
       .then((res) => {
           console.log(res.data)
           this.article = res.data;
@@ -85,11 +85,23 @@ export default {
         });
          
 
-    }
-    
+    },
+    deleteArticle(id){
+      axios
+      .delete("api/article/" + this.$route.params.articleid)
+      .then (()=>{
+        alert("your article is deleted");
+        this.$router.push("/profile")
+      })
+      .catch((error) => {
+          console.log({ error });
+      });
+    },
   },
+ 
+  
   mounted(){
-   
+    
     this.getonearticle(); 
    
 
@@ -99,5 +111,19 @@ export default {
 }
 </script>
 
+<style scoped>
+button {
+  width: 120px;
+  cursor: pointer;
+  border: unset;
+  font-size: 1em;
+  box-shadow: 5px 5px 15px -3px rgb(0 0 0 / 50%);
+  background: rgb(255, 61, 61);
+  margin-top: 10px;
+  transition: 0.3s;
+  color: white;
+  font-weight: bold;
+}
+</style>
 
 
