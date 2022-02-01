@@ -2,9 +2,9 @@ const db = require("../models/db");
 
 exports.getall  = (req, res, next)=>{
     const articleId = req.params.id
-   
-    db.query("SELECT * from commentaire  WHERE commentaire.article_id = ${articleId}",
-     (err, rows, fields)=>{
+   //"SELECT * from commentaire  WHERE commentaire.articleid = ${articleId}"
+    db.query("SELECT * from commentaire join article on article.id = commentaire.articleid",
+     (err, result, fields)=>{
         
         if (err) {
             res.status(400).json(err);

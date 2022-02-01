@@ -11,7 +11,7 @@
           v-model="commentaire"
         />
       </div>
-      <button type="submit">Envoyer</button>
+      <button type="submit" @click.prevent="addNewcomment">Envoyer</button>
     </form>
     <div class="error" v-if="error">
       {{ error }}
@@ -23,29 +23,35 @@
 import axios from "axios";
 export default {
   name: "NewCommentaire",
-  props: {
-    id: { type: Number },
-  },
+  //props: {
+    //id: { type: Number },
+  //},
   data() {
     return {
+       userId: "",
       commentaire: "",
       error: "",
     };
   },
   methods: {
-    async buttonNewCommentaire() {
-      this.error = "";
-      try {
-        await axios.post("/api/article/" + this.id + "/commentaire/", {
-          comment: this.comment,
-        });
-        this.$emit("refresh");
-        this.comment = "";
-        this.error = "Your comment sent !";
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    //async buttonNewCommentaire() {
+      //this.error = "";
+      //try {
+        //await axios.post("/api/article/" + this.id + "/commentaire/", {
+          //comment: this.comment,
+        //});
+        //this.$emit("refresh");
+        //this.comment = "";
+        //this.error = "Your comment sent !";
+      //} catch (error) {
+        //console.log(error);
+      //}
+    //},
+    addNewcomment:function () {
+      this.$emit("createcomment",{
+        comment:this.comment
+      })
+    }
   },
 };
 </script>

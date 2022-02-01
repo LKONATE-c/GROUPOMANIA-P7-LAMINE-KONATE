@@ -14,8 +14,13 @@
             Supprimer
           </button>
         </div>
-        <div class="update">
-        </div>
+       
+          <button2
+           v-if="article.userid === user.id || isAdmin"
+            @click.prevent="deleteArticle(article.id)">
+            Uptdate
+          </button2>
+     
         <!-- pour poster un commentaire -->
         <newcommentaire @refresh="refreshCommentaire" :id="article.id"></newcommentaire>
       </div>
@@ -123,6 +128,19 @@ button {
   transition: 0.3s;
   color: white;
   font-weight: bold;
+}
+button2 {
+  width: 120px;
+  cursor: pointer;
+  border: unset;
+  font-size: 1em;
+  box-shadow: 5px 5px 15px -3px rgb(0 0 0 / 50%);
+  background: #3d77ff;
+  margin-top: 10px;
+  transition: 0.3s;
+  color: white;
+  font-weight: bold;
+
 }
 </style>
 
