@@ -11,7 +11,7 @@ router.get("/all",ctrlarticle.getall);
 router.get("/getone/:id",ctrlarticle.getone);
 router.post("/",ctrlarticle.add);
 router.delete("/:id",ctrlarticle.delete);
-router.put('/update',ctrlarticle.delete);
+router.put('/update',ctrlarticle.update);
 router.get('/all/:userid',ctrlarticle.getArticleByUser);
 
 

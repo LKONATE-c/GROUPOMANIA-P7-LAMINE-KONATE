@@ -58,6 +58,12 @@
         <button class="deletebtn" type="submit" @click.prevent="deleteProfile">
           Supprimer mon compte
         </button>
+        <!-- deco du  profil -->
+        <button class="logoutbtn" type="submit" @click.prevent="logout">
+         Deconnexion
+        </button>
+
+
         <hr/>
         <P> Follow the news on our forum
               <router-link to="/forum">GO Forum</router-link>
@@ -122,6 +128,11 @@ export default {
 
     },
 
+    logout(){
+          localStorage.clear();
+          this.$router.push("/login");
+    },
+
     
     
   },
@@ -179,6 +190,22 @@ export default {
   font-weight: bold;
 }
 .deletebtn:hover {
+  border-radius: 10px 0 10px 0;
+}
+.logoutbtn {
+  width: 150px;
+  cursor: pointer;
+  border: unset;
+  font-size: 1.2em;
+  box-shadow: 5px 5px 15px -3px rgba(0, 0, 0, 0.5);
+  background-color: rgba(204, 216, 41, 0.972);
+  margin-top: 40px;
+  margin-bottom: 40px;
+  transition: 0.3s;
+  color: black;
+  font-weight: bold;
+}
+.logoutbtn:hover {
   border-radius: 10px 0 10px 0;
 }
 button {

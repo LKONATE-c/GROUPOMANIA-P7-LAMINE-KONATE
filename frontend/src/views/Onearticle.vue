@@ -14,12 +14,20 @@
             Supprimer
           </button>
         </div>
+        <modaleart @update="updateArticle($event)" v-bind:revele = "revele" v-bind:toggleModaleart = "toggleModaleart" :article="article"></modaleart>
+         <div v-on:click="toggleModaleart" class="btn btn-success">edit article</div>
        
-          <button2
+          <!--<button2
            v-if="article.userid === user.id || isAdmin"
-            @click.prevent="deleteArticle(article.id)">
-            Uptdate
-          </button2>
+            @click.prevent="editArticle(article.id)">
+            Edit
+          </button2> -->
+          <!--<button class="btn btn-primary" @click="editArticle(article.id)">Edit</button>-->
+          <!-- Button trigger modal -->
+          <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+            editarticle
+          </button> -->
+
      
         <!-- pour poster un commentaire -->
         <newcommentaire @refresh="refreshCommentaire" :id="article.id"></newcommentaire>
@@ -34,7 +42,7 @@
           <p class="commDe">
             Publié par {{ commentaire.User.firstName }} {{ commentaire.User.lastName }}
           </p>
-          <div v-if="commentaire.User.id === me || isAdmin">
+          <div v-if="commentaire.userid === user.id || isAdmin">
             <button @click.prevent="deleteComment(comment.id)">
               Supprimer
             </button>
@@ -50,12 +58,14 @@
 import axios from "axios";
 import NewCommentaire from "../components/Newcommentaire";
 import cardArticle from "../components/cardArticle";
+import Modaleart from "../components/Modaleart.vue";
 
 export default {
   name:"Onearticle",
   components: {
     NewCommentaire,
     cardArticle,
+    Modaleart
   },
   
   
@@ -64,6 +74,7 @@ export default {
       article: null,
       commentaire: [],
        isAdmin: false,
+       revele:false
 
     }
 
@@ -74,7 +85,7 @@ export default {
     }
   },
   methods: {
-
+                        //chager l'article selectionner 
     getonearticle() {
       axios
       .get("/api/article/getone/" + this.$route.params.articleid)
@@ -90,7 +101,7 @@ export default {
         });
          
 
-    },
+    },                      //supprimer l'article
     deleteArticle(id){
       axios
       .delete("api/article/" + this.$route.params.articleid)
@@ -101,7 +112,35 @@ export default {
       .catch((error) => {
           console.log({ error });
       });
+
+    },  
+
+    toggleModaleart: function(){
+        this.revele = !this.revele;
     },
+  
+      
+  
+
+                  //modification de l'article
+    updateArticle(articleUpdated){
+      axios
+      .put("/api/article/update" ,{
+        title:articleUpdated.title,
+        content:articleUpdated.content,
+        id:this.article.id
+      })
+      .then((response)=>{
+            this.article.title=articleUpdated.title;
+             this.article.content=articleUpdated.content;
+              this.toggleModaleart()
+            alert("article updated");
+        });
+      
+
+      
+    }
+
   },
  
   

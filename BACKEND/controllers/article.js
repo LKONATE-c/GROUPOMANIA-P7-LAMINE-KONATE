@@ -65,14 +65,15 @@ exports.delete =(req, res, next) =>{
     })
 }
 
-exports.upadate = (req,res, next)=>{
-    db.query("UPDATE SET article content = ?, image = ?, WHERE id = ?",
-    [req.body.content, req.body.image, req.body.id],
+exports.update = (req,res, next)=>{
+    console.log(req.body)
+    db.query("UPDATE article SET content = ?, title = ? WHERE id = ?",
+    [req.body.content, req.body.title, req.body.id],
     (err, result, fields) =>{
         if (!err) {
             res.json("update successfully");
         } else {
-            console.log(err)
+            res.json(err)
         }
     })
 }

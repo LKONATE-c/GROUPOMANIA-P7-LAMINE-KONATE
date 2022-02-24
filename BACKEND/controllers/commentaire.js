@@ -1,19 +1,39 @@
 const db = require("../models/db");
 
+
 exports.getall  = (req, res, next)=>{
-    const articleId = req.params.id
-   //"SELECT * from commentaire  WHERE commentaire.articleid = ${articleId}"
-    db.query("SELECT * from commentaire join article on article.id = commentaire.articleid",
-     (err, result, fields)=>{
-        
-        if (err) {
-            res.status(400).json(err);
-        
-        } else{
-            res.status(200).json(result)
-        }
-    })
+    db.query("SELECT * from commentaire where articleid = ?",
+  		[req.params.id], (err, result, fields)=>{
+
+      if (err) {
+        res.status(400).json(err);
+
+      } else{
+        res.status(200).json(result)
+      }
+  })
 }
+
+
+
+
+
+//exports.getall  = (req, res, next)=>{
+    //const articleId = req.params.id
+    
+   //"SELECT * from commentaire  WHERE commentaire.articleid = ${articleId}"
+    //db.query("SELECT * from commentaire join article on article.id = commentaire.articleid",
+    //db.query("from commentaire WHERE articleid =?",[req.params.articleid,req.body.comment],
+     //(err, result, fields)=>{
+        
+        //if (err) {
+            //res.status(400).json(err);
+        
+        //} else{
+            //res.status(200).json(result)
+        //}
+    //})
+//}
 
 exports.getone = ("/commentaire/:id", (req, res, next)=>{
     db.query("SELECT * from commentaire WHERE ID =?",[req.params.id], (err, res, field)=>{
