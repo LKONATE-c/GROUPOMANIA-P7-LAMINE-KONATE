@@ -18,16 +18,19 @@
 import axios from "axios";
 import cardArticle from "../components/cardArticle.vue";
 import newArticle from "../components/newArticle";
+import Newcommentaire from "../components/Newcommentaire.vue";
 export default {
   name: "Forum",
   components: {
     cardArticle,
     newArticle,
+    Newcommentaire,
   },
   data() {
     return {
       
       allArticles: [],
+      allCommentaire: [],
     };
 
   },
@@ -83,13 +86,21 @@ export default {
         })
         
 
-       
       })
      
      
     }
   
   },
+  //getallcommentaire() {
+    //axios
+    //.get ("api/commentaire/all/:id")
+    //.then((res) =>{
+       //console.log(res.data)
+
+
+    //})
+  //}
   mounted(){
     this.getallarticle();
    

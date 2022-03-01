@@ -14,7 +14,7 @@
 
                 <label for ="title">Title:</label>
                 <input type="text" v-model="title" id="title" placeholder="here your title"><br />
-
+                <hr>
                 <label for ="content">content:</label>
                 <input type="text"  v-model="content" id="content" placeholder="your mesage here"><br />
 
@@ -88,7 +88,10 @@ export default {
 }
 
 .modaleart-body {
-    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
     align-content: space-between;
 }
 

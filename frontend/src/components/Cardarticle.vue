@@ -1,5 +1,10 @@
 <template>
+   
   <div class="card">
+    <div class="media-body">
+			    <!--<p class="m-0">Benjamin Robinson</p>-->
+           <p class="commDe">Publié par {{ user.firstname }} {{ user.lastname }}</p>
+   </div>
     <!--<router-link :to="`/article/${article.id}`">-->
     <h2>{{ article.title }}</h2>
     <p>{{ article.content }}</p>
@@ -9,8 +14,15 @@
         <!--<img :src="image" />-->
       </router-link>
     </div>
-    <p class="commDe">Publié par {{ user.firstname }} {{ user.lastname }}</p>
+    <!--<p class="commDe">Publié par {{ user.firstname }} {{ user.lastname }}</p>-->
     <router-link :to="`/article/${article.id}`">Commentary ...</router-link>
+    
+			 
+    
+     <div class="search">
+			   <input placeholder="Write a comment" type="text">
+			    <button type="submit" @click.prevent="addNewComment">Envoyer</button>
+			</div><!--/. Search -->
   </div>
 </template>
 

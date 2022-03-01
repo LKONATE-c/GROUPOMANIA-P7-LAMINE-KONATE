@@ -1,5 +1,26 @@
 <template>
-  <div>
+
+<form @submit.prevent="addNewComment" class="newCommentaire">
+    
+      <h3>New Comment</h3>
+      <div>
+        <label for="comment">comment :</label><br />
+            <input
+            type="comment"
+            id="comment"
+            placeholder="here your comment"
+            v-model="comment"
+            />
+      </div>
+      
+      <div>
+        <!-- <label for="File" class="file">(Image facultative)</label> -->
+        <input type="file" id="file" ref="file" @change="selectFile()" />
+      </div>
+      <button type="submit" >Envoyer</button>
+    
+</form>
+  <!--<div>
     <form @submit.prevent="buttonNewCommentaire">
       <div>
         <label for="commentaire"></label>
@@ -16,40 +37,30 @@
     <div class="error" v-if="error">
       {{ error }}
     </div>
-  </div>
+  </div>-->
 </template>
 
 <script>
-import axios from "axios";
+
 export default {
-  name: "NewCommentaire",
+  name: "Newcommentaire",
   //props: {
     //id: { type: Number },
   //},
   data() {
     return {
        userId: "",
-      commentaire: "",
+      comment: "",
       error: "",
     };
   },
   methods: {
-    //async buttonNewCommentaire() {
-      //this.error = "";
-      //try {
-        //await axios.post("/api/article/" + this.id + "/commentaire/", {
-          //comment: this.comment,
-        //});
-        //this.$emit("refresh");
-        //this.comment = "";
-        //this.error = "Your comment sent !";
-      //} catch (error) {
-        //console.log(error);
-      //}
-    //},
-    addNewcomment:function () {
+   
+    addNewComment:function () {
+      console.log(this.comment)
       this.$emit("createcomment",{
-        comment:this.comment
+        comment:this.comment,
+        image:"url",
       })
     }
   },

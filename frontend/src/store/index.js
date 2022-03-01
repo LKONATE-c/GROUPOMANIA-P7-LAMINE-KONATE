@@ -3,7 +3,16 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    user:null,
+    user:{
+      create_on: "2021-12-27T14:48:30.000Z",
+email: "abc@grop.com",
+firstname: "jean",
+id: 1,
+lastname: "roche",
+password: "123",
+picture: null,
+role: "customer",
+    },
     token:null,
   },
   mutations: {

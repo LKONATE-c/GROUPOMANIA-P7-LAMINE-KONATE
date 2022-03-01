@@ -36,7 +36,7 @@ exports.getall  = (req, res, next)=>{
 //}
 
 exports.getone = ("/commentaire/:id", (req, res, next)=>{
-    db.query("SELECT * from commentaire WHERE ID =?",[req.params.id], (err, res, field)=>{
+    db.query("SELECT * from commentaire WHERE ID =?",[req.params.id], (err, result, field)=>{
         if(!err)
             {
                 res.status(200).json(result);
@@ -49,17 +49,25 @@ exports.getone = ("/commentaire/:id", (req, res, next)=>{
 
 })
 
-exports.add = ("/", (req, res, next) =>{
-    let data = [ req.body.content, req.body.userid, req.body.articleid,];
-    db.query("INSERT INTO commentaire ( content, userid, articleid) VALUES (?, ?, ?)",
-    data, (err,res,field) =>{
+exports.add =  (req, res, next) =>{
+    let data = [ req.body.comment, req.body.userid, req.body.articleid,];
+    db.query("INSERT INTO commentaire ( comment, userid, articleid) VALUES (?, ?, ?)",
+    data, (err,result,field) =>{
+        console.log(result.insertId);
+        console.log(field);
         if(!err){
-            res.status(200).json({ message:"content add"});
+            res.status(200).json({ 
+                id:result.insertId,
+                comment:req.body.comment,
+                userid:req.body.userid,
+                articleid:req.body.articleid
+            
+            });
         }else {
             res.status(400).json(err);
         }
     })
-})
+}
 
 
 

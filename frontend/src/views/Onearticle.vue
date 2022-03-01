@@ -14,7 +14,7 @@
             Supprimer
           </button>
         </div>
-        <modaleart @update="updateArticle($event)" v-bind:revele = "revele" v-bind:toggleModaleart = "toggleModaleart" :article="article"></modaleart>
+        <modaleart v-if="article.userid === user.id || isAdmin" @update="updateArticle($event)" v-bind:revele = "revele" v-bind:toggleModaleart = "toggleModaleart" :article="article"></modaleart>
          <div v-on:click="toggleModaleart" class="btn btn-success">edit article</div>
        
           <!--<button2
@@ -28,19 +28,23 @@
             editarticle
           </button> -->
 
-     
-        <!-- pour poster un commentaire -->
-        <newcommentaire @refresh="refreshCommentaire" :id="article.id"></newcommentaire>
       </div>
+        <!-- pour poster un commentaire -->
+
+
+        <div class="newcommentaire">
+      <newCommentaire v-on:createcomment="createcommentaire($event)" />
+    </div>
+     
       <!-- Début des commentaires -->
-      <!--<h2>Commentaires :</h2>
-      <div ref="comments">
-        <div class="card" :key="commentaire.id" v-for="commentaire of commentaires">
+      <h2>Commentaires :</h2>
+      <div class="comments">
+        <div class="card" :key="commentaire.id" v-for="commentaire of allCommentaire">
           <p>
-            {{ commentaire.commentaire }}
+            {{ commentaire.commentaire.comment }}
           </p>
           <p class="commDe">
-            Publié par {{ commentaire.User.firstName }} {{ commentaire.User.lastName }}
+            Publié par {{ commentaire.user.firstname }} {{ commentaire.user.lastname }}
           </p>
           <div v-if="commentaire.userid === user.id || isAdmin">
             <button @click.prevent="deleteComment(comment.id)">
@@ -49,7 +53,7 @@
           </div>
           
         </div>
-      </div>-->
+      </div>
     </div>
     
   </div>
@@ -59,6 +63,7 @@ import axios from "axios";
 import NewCommentaire from "../components/Newcommentaire";
 import cardArticle from "../components/cardArticle";
 import Modaleart from "../components/Modaleart.vue";
+
 
 export default {
   name:"Onearticle",
@@ -70,11 +75,14 @@ export default {
   
   
   data () {
+   
+    
     return {
       article: null,
       commentaire: [],
        isAdmin: false,
-       revele:false
+       revele:false,
+        allCommentaire: [],
 
     }
 
@@ -92,6 +100,7 @@ export default {
       .then((res) => {
           console.log(res.data)
           this.article = res.data;
+          this.getAllCommentaire();
         })
           .catch((error) => {
           console.log({ error });
@@ -114,7 +123,7 @@ export default {
       });
 
     },  
-
+                    // afficher la modal
     toggleModaleart: function(){
         this.revele = !this.revele;
     },
@@ -139,14 +148,59 @@ export default {
       
 
       
-    }
-
+    },
+     getAllCommentaire() {
+    axios
+      .get("/api/commentaire/all/"+this.article.id)
+      .then((res) => {
+          console.log(res.data)
+          res.data.forEach((commentaire)=>{
+            axios.get("/api/user/getone/"+ commentaire.userid).then((res)=>{
+              console.log(res.data);
+              this.allCommentaire.push({
+                commentaire:commentaire,
+                user:res.data,
+              })
+            })
+          })
+        })
+          .catch((error) => {
+          console.log({ error });
+          if (error.status === 401) {
+            this.$router.push("/login");
+          }
+        });
   },
+  createcommentaire(e) {
+    axios
+    .post("/api/commentaire/", {
+      comment:e.comment,
+      articleid:this.article.id,
+      userid:this.user.id
+
+       })
+    .then((res) =>{
+      console.log(res.data)
+      this.allCommentaire.push({
+        commentaire:res.data,
+        user:this.user
+        })
+        
+
+      })
+     
+         
+    },
+  },
+  
+ 
+  
  
   
   mounted(){
     
     this.getonearticle(); 
+   
    
 
   },
@@ -156,6 +210,12 @@ export default {
 </script>
 
 <style scoped>
+.the-article {
+  margin: 30px 20px 30px 20px;
+  padding: 1px 0px 30px 0px;
+  background-color: #d2fafa;
+  border-radius: 10px;
+}
 button {
   width: 120px;
   cursor: pointer;
@@ -167,6 +227,7 @@ button {
   transition: 0.3s;
   color: white;
   font-weight: bold;
+  margin-bottom: 8px;
 }
 button2 {
   width: 120px;
@@ -180,6 +241,15 @@ button2 {
   color: white;
   font-weight: bold;
 
+}
+.card {
+  margin: 10px 20px 20px 20px;
+  padding: 1px 30px 30px 30px;
+  background-color: white;
+  border-radius: 10px;
+}
+.commDe {
+  font-style: italic;
 }
 </style>
 
