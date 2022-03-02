@@ -17,16 +17,7 @@
         <modaleart v-if="article.userid === user.id || isAdmin" @update="updateArticle($event)" v-bind:revele = "revele" v-bind:toggleModaleart = "toggleModaleart" :article="article"></modaleart>
          <div v-on:click="toggleModaleart" class="btn btn-success">edit article</div>
        
-          <!--<button2
-           v-if="article.userid === user.id || isAdmin"
-            @click.prevent="editArticle(article.id)">
-            Edit
-          </button2> -->
-          <!--<button class="btn btn-primary" @click="editArticle(article.id)">Edit</button>-->
-          <!-- Button trigger modal -->
-          <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-            editarticle
-          </button> -->
+          
 
       </div>
         <!-- pour poster un commentaire -->
@@ -46,11 +37,13 @@
           <p class="commDe">
             Publié par {{ commentaire.user.firstname }} {{ commentaire.user.lastname }}
           </p>
-          <div v-if="commentaire.userid === user.id || isAdmin">
-            <button @click.prevent="deleteComment(comment.id)">
+          <!--<div v-if="commentaire.userid === user.id || isAdmin">-->
+            <button
+            
+             @click.prevent="deleteComment(comment.id)">
               Supprimer
             </button>
-          </div>
+          <!--</div>-->
           
         </div>
       </div>
@@ -192,6 +185,31 @@ export default {
          
     },
   },
+  deleteCommentaire(id){
+      axios
+      //.delete("api/commentaire/" + this.$route.params.commentid)
+      //.then (()=>{
+        //alert("your comment is deleted");
+        //this.$router.push("/profile")
+     // })
+      //.catch((error) => {
+          //console.log({ error });
+      //});
+
+    //},  
+     .delete("/api/post/" + this.$route.params.id + "/comment/" + id)
+        .then(() => {
+          alert("your comment is deleted !");
+          this.$router.push("/profile")
+        })
+        .catch((error) => {
+          console.log({ error });
+        });
+    },
+                    // afficher la modal
+    toggleModaleart: function(){
+        this.revele = !this.revele;
+    },
   
  
   

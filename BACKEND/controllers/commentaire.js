@@ -73,9 +73,9 @@ exports.add =  (req, res, next) =>{
 
 
 exports.delete = (req, res, next)=>{
-    db.query("DELETE FROM commentaire WHERE ComID =?",
-    [req.params.id], (err, rows, fields)=>{
-        if (result[0].userId == req.body.userId || req.body.admin == true)
+    db.query("DELETE FROM commentaire WHERE id =?",
+    [req.params.id], (err, result, fields)=>{
+        //if (result[0].userId == req.body.userId || req.body.admin == true)
         if(!err)
             {
                 res.status(200).json({message:"deleted successfully."});
