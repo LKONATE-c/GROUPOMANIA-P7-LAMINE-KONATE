@@ -36,11 +36,13 @@
           </p>
           <p class="commDe">
             Publié par {{ commentaire.user.firstname }} {{ commentaire.user.lastname }}
+            le {{new Date(commentaire.commentaire.date).toLocaleDateString("fr")}}
           </p>
-          <!--<div v-if="commentaire.userid === user.id || isAdmin">-->
-            <button
-            
-             @click.prevent="deleteComment(comment.id)">
+          
+            <button  v-if="commentaire.commentaire.userid === user.id || isAdmin"
+            @click="deleteCommentaire(commentaire.commentaire.id)">
+             
+             
               Supprimer
             </button>
           <!--</div>-->
@@ -184,43 +186,30 @@ export default {
      
          
     },
-  },
-  deleteCommentaire(id){
+     deleteCommentaire(id) {
       axios
-      //.delete("api/commentaire/" + this.$route.params.commentid)
-      //.then (()=>{
-        //alert("your comment is deleted");
-        //this.$router.push("/profile")
-     // })
-      //.catch((error) => {
-          //console.log({ error });
-      //});
-
-    //},  
-     .delete("/api/post/" + this.$route.params.id + "/comment/" + id)
-        .then(() => {
-          alert("your comment is deleted !");
-          this.$router.push("/profile")
+      .delete("api/commentaire/" + id)
+      .then (()=>{
+        alert("your comment is deleted");
+        this.allCommentaire= this.allCommentaire.filter((element )=>{
+          return element.commentaire.id !== id
         })
-        .catch((error) => {
+      })
+      .catch((error) => {
           console.log({ error });
-        });
-    },
-                    // afficher la modal
-    toggleModaleart: function(){
+      });
+                               // afficher la modal
+     },
+       toggleModaleart: function(){
         this.revele = !this.revele;
     },
-  
- 
-  
- 
-  
+
+  },
+
   mounted(){
     
-    this.getonearticle(); 
-   
-   
-
+    this.getonearticle();
+  
   },
     
   

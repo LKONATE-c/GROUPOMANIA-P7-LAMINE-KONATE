@@ -1,4 +1,4 @@
-<template>
+<!--<template>
   <div id="allArticle">
     <h3 class="title">Liste des articles</h3>
     <card-article
@@ -9,11 +9,12 @@
       :user="article.User"
       :image="article.image"
       :id="article.id"
+      :date="article.date"
 
     />
   </div>
   
-</template>
+</template>-->
 //----------------------------------------------------------------------------------------------------------------------
 <script>
 import axios from "axios";
