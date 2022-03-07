@@ -17,6 +17,7 @@
         <input type="text" v-model="email"  class="form-control"   placeholder="name@example.com" required>
 
         <input type="password" v-model="password"  class="form-control"  placeholder="Password" required>
+        <div v-if="passwordError" class="error">{{passwordError}}</div>
       
         <button class="w-100 btn btn-lg btn-primary" type="submit">Signup</button>
 
@@ -43,6 +44,7 @@ export default {
             lastname:'',
             email:'',
             password:'',
+            passwordError:''
         } 
     },
     methods:{
@@ -51,7 +53,9 @@ export default {
                 firstname:this.firstname,
                 lastname:this.lastname,
                 email:this.email,
-                password:this.password
+                password:this.password,
+                passwordError: this.password.length > 2 ?
+                 '' : 'password must be a least 3 chars long'
             }
               console.table(data);
       try {
@@ -80,6 +84,13 @@ export default {
 .container_login {
   margin-top: 20px;
   box-shadow: 0px 0px 10px 0px grey;
+}
+.error{
+  color: #ff062f;
+  margin-top: 10px;
+  font-size: 0.8em;
+  font-weight: bold;
+
 }
 
 </style>

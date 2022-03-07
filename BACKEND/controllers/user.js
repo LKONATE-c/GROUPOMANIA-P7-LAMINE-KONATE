@@ -6,37 +6,54 @@ const { json } = require("body-parser");
 
 // s'inscrire 
 exports.signup = (req, res, next)=> {
-    db.query("SELECT * FROM user WHERE email=?",[req.body.email],
-    (err,rows,fields) =>{
+    db.query("SELECT *FROM user WHERE email = ?", [req.body.email],(err,result,field)=>{
+       if(result.length===0){
+        bcrypt.hash(req.body.password, 10).then( (hash) => {
         
-        let user = result[0];
-        if (!user) {
-            bcrypt.hash(req.body.password,10)
-            .then (hash => {
-                const image = `${req.protocol}://${req.get('host')}/images/profile/pp.png`;
-                const user = {
-                    firstname: req.body.firstname,
-                    lastname: req.body.lastname,
-                    email: req.body.email,
-                    password: hash,
-                    imageUrl: image,
-                }
-                let data = [ req.body.firstname, req.body.lastname, req.body.email. req.body.password, req.body.image];
-                db.query("INSERT INTO user ( firstname, lastname, email, password, image) VALUES (?, ?, ?, ?, ?  )",
-                 function (err, result) {
-                    if (err)
-                        throw err;
-                    res.status(201).json({ message: 'user created' });
-                })
-                })
-                .catch(error => res.status (500).json({ error }));
-            } else {
-                res.status(401).json ({ message:'email already exists'})
-            }
+            let data = [ req.body.firstname, req.body.lastname, req.body.email, hash,"customer"];
+            db.query("INSERT INTO user (firstname, lastname, email, password, role) VALUES (?, ?, ?, ?, ?  )",
+                data, (err,result,fields) => {
+                    if(!err) {
+                        res.status(200).json("utilisateur créé")
+               
+                    }else {
+                        res.json(err);
+                    }
+            })
+    
+    
+        }).catch((error)=>{
+            res.satuts(500).json(error)
+        })
+       } else{
+           res.status(400).json("utilisateur existant")
+       }
         
-
     })
-};
+    /*  
+    bcrypt.hash(req.body.password, 10).then( (hash) => {
+        
+        let data = [ req.body.firstname, req.body.lastname, req.body.email, hash,"customer"];
+        db.query("INSERT INTO user (firstname, lastname, email, password, role) VALUES (?, ?, ?, ?, ?  )",
+            data, (err,result,fields) => {
+                if(!err) {
+                    res.status(200).json("utilisateur créé")
+           
+                }else {
+                    res.json(err);
+                }
+        })
+
+
+    }).catch((error)=>{
+        res.satuts(500).json(error)
+    })
+    */
+   
+    
+
+}
+    
 // se connecter 
 exports.login = (req, res, next) => {
     db.query("SELECT * FROM user WHERE email=?",[req.body.email],
@@ -46,7 +63,7 @@ exports.login = (req, res, next) => {
         if (!user) return res.status(401).json({ error:'incorrect email'});
         bcrypt.compare(req.body.password,user.password)
         .then(valid => {
-            if (valid) {
+            if (!valid) {
                 return res.status(401).json({error: 'wrong password' })
             }
             res.status(200).json({
@@ -59,7 +76,7 @@ exports.login = (req, res, next) => {
                 ),
                 user:user
             })
-            db.query("INSERT INTO connection (userid) VALUES (?)",[user.id])
+           
         })
         .catch(error => res.status(500).json({message:'authentication error'}))
 })
@@ -67,29 +84,20 @@ exports.login = (req, res, next) => {
 
 //supprimer un compte 
 exports.delete = (req, res, next) => {
-    if (req.body.password) {
-        db.query("SELECT* FROM user WHERE id=?",[req.body.id],
-       function (err, result) {
-           let user = result[0];
-           bcrypt.compare(req.body.password, user.password)
-           .then(valid => {
-               if (!valid) {
-                   return res.status(401).json({ message:"wrong password"});
-               }else {
-                   bcrypt.hash(req.body.password, 10)
-                   .then(hash => {
-                       db.query("DELETE FROM user WHERE id=?",[req.params.id],
-                       function (err,result){
-                           if (err) throw err;
-                           res.status(200).json({ message:'account ${req.params.id} deleted'});
-                       });
-                   })
-                   .catch(error => res.status(500).json({ error}));
-               }
+   
+        db.query("SELECT* FROM user WHERE id=?",[req.params.id],
+        (err, result,field)  =>{
+          if (err){
+              res.status(500).json(err)
+          }
+           db.query("DELETE FROM user WHERE id=?",[req.params.id],
+            (err,result,field) =>{
+                if (err){
+                    res.status(500).json(err)
+                }
+               res.status(200).json({ message:'account deleted'});
            })
-           .catch(error => res.status(500).json ({ message:'authentication error'}));
-       });
-    }
+       })
 }
 //recupérer tous par nom ou prénom
 exports.getall = (req, res, next) => {

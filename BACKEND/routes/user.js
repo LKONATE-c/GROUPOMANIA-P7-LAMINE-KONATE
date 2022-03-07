@@ -8,9 +8,9 @@ const auth = require("../middlewares/auth");
 
 router.get("/all",ctrluser.getall);
 router.get("/getone/:id",ctrluser.getone);
-router.post("/signup", multer,ctrluser.signup);
+router.post("/signup", ctrluser.signup);
 router.post("/login",ctrluser.login);
-router.delete("/user/:id",ctrluser.delete);
+router.delete("/:id",ctrluser.delete);
 router.put("/modifyPassword/:id",ctrluser.modifyPassword);
 router.put("/modifAccount/:id",ctrluser.modifAccount);
 
