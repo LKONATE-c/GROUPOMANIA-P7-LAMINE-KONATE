@@ -30,26 +30,7 @@ exports.signup = (req, res, next)=> {
        }
         
     })
-    /*  
-    bcrypt.hash(req.body.password, 10).then( (hash) => {
-        
-        let data = [ req.body.firstname, req.body.lastname, req.body.email, hash,"customer"];
-        db.query("INSERT INTO user (firstname, lastname, email, password, role) VALUES (?, ?, ?, ?, ?  )",
-            data, (err,result,fields) => {
-                if(!err) {
-                    res.status(200).json("utilisateur créé")
-           
-                }else {
-                    res.json(err);
-                }
-        })
-
-
-    }).catch((error)=>{
-        res.satuts(500).json(error)
-    })
-    */
-   
+    
     
 
 }

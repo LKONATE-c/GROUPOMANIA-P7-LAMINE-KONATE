@@ -5,6 +5,7 @@ import Signup from '@/views/Signup.vue'
 import Profile from '@/views/Profile.vue'
 import Onearticle from '@/views/Onearticle.vue'
 import Forum from '@/views/Forum.vue'
+import Admin from '@/views/Admin.vue'
 
 
 
@@ -38,8 +39,11 @@ const routes = [
   {path:'/Forum',
   name:'Forum',
    component: Forum
+  },
+  {path:'/Admin',
+  name:'Admin',
+   component: Admin
   }
-
   
 ]
 

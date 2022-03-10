@@ -55,7 +55,7 @@
         </form>
         <hr />
         <!-- Supprimer le profil -->
-        <button class="deletebtn" type="submit" @click.prevent="deleteProfile">
+        <button class="deletebtn" v-on:click="deleteProfile(user.id)">
           Supprimer mon compte
         </button>
         <!-- deco du  profil -->
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios, { Axios } from "axios";
 import cardArticle from "../components/cardArticle";
 export default {
   name: "Profile",
@@ -124,7 +124,13 @@ export default {
     updateProfile() {
 
     },
-    deletedProfile(){
+    deletedProfile(id){
+      axios
+      .delete("api/user/"+id)
+      .then((res)=>{
+        alert("Your account is deleted!");
+        this.$router.push("/signup");
+      })
 
     },
 
