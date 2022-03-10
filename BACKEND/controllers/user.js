@@ -133,21 +133,40 @@ exports.modifyPassword = (req, res, next) => {
 }
 //modification du user
 exports.modifAccount = (req, res, next) => {
-      
-    if (req.body.firstname != "") {
-        let sql2 = 'UPDATE user SET firstname=? WHERE id=?';
-        db.query(sql2, [req.body.firstname, req.params.id],
-            function (err,result){
-                if (err) throw err;
-            });
-    }
-    
-    if (req.body.lastname != "") {
-        let sql2 = 'UPDATE user SET lastname=? WHERE id=?';
-        db.query(sql2,[req.body.lastname, req.params.id],
-            function (err, result){
-                if (err) throw err;
-            });
+    db.query("UPDATE  user SET firstname = ?",[req.body.firstname],
+    (err, result, fields) =>{
+        if (!err) {
+            res.json("firstname updated");
+        }else {
+            res.json(err)
         }
-        res.status(200).json({ message:'user update'})
+    
+    })
+
+
+    db.query("UPDATE  user SET lastname = ?",[req.body.lastname],
+    (err, result, fields) =>{
+        if (!err) {
+            res.json("lastname updated");
+        }else {
+            res.json(err)
+        }
+
+    })
+}
+    
+    
+
+    //recuperer tous les users
+    exports.getall  = (req, res, next)=>{
+   
+        db.query("SELECT * from user", (err, result, fields)=>{
+            if (err) {
+                res.status(400).json(err);
+            
+            } else{
+                res.status(200).json(result)
+            }
+           
+        })
     }

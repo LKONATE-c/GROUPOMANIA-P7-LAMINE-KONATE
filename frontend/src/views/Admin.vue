@@ -43,7 +43,7 @@ export default {
 
         getData() {
             axios
-            .get("/api/user/getone/"+ id)
+            .get("/api/user/all/" )
             .then((result)=>{
                 console.log(result)
                 this.user=result.data
