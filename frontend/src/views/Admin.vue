@@ -1,50 +1,49 @@
 <template>
-<section>
-    <h1>User list</h1>
-    <div class="table-responsive col-lg-12">
-        <table class="table table-light table-striped table-hover table-borderless">
-                <thead class="table-dark">
+<h1>User list</h1>
+        <table class="table">
+            <thead class="thead-dark">
+              
                     <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Action</th>
+                        <td >id</td>
+                        <td >First Name</td>
+                        <td >Last Name</td>
+                        <td >Email</td>
+                        <td >Action</td>
                     </tr>
-                </thead>
-                 <tbody>
-                     <tr v-for="user in users" v-bind:key="user.id">
+                     <tr v-for="user in user" v-bind:key="user.id">
                          <td>{{user.id}}</td>
                          <td>{{user.firstname}}</td>
                          <td>{{user.lastname}}</td>
                          <td>{{user.email}}</td>
-                         <td button v-on:click="deleteUser(user.id)">Delete</td>
+                         <td><button v-on:click="deleteUser(user.id)">Delete</button></td>
                      </tr>
-
-                 </tbody>
-
+            </thead>
         </table>
-
-
-    </div>
-</section>
   
 </template>
 
 <script>
 import axios from "axios";
+
+
 export default {
-    name:"Admin",
-    data () {
-        return {
-            user:null
-        }
-    },
-    methods:{
+    name:"User",
+        data () {
+            return { user:null
+                
+            }
+            
+        },
+    //computed:{
+        //user(){
+        //return this.$store.getters["user"]
+       //}
+    //},
+    methods: {
 
         getData() {
             axios
-            .get("/api/user/getone/"+id)
+            .get("/api/user/getone/"+ id)
             .then((result)=>{
                 console.log(result)
                 this.user=result.data
@@ -53,7 +52,7 @@ export default {
         },
         deleteUser(id) {
             axios
-             .delete("api/user/"+id)
+             .delete("api/user/"+ id)
              .then(()=>{
                  this.getData();
 
@@ -70,14 +69,8 @@ export default {
 </script>
 
 <style>
-    section {
-        background-color: #000000cc;
-        width: 100%;
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 100px;
+    table {
+        padding:15px;
     }
 
     @media screen and (max-width: 768px) {
