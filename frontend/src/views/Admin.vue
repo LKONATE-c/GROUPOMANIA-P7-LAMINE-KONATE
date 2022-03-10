@@ -1,6 +1,8 @@
 <template>
 <h1>User list</h1>
-        <table class="table">
+    <section>
+        
+        <table class="table table-light table-striped table-hover table-borderless">
             <thead class="thead-dark">
               
                     <tr>
@@ -19,6 +21,7 @@
                      </tr>
             </thead>
         </table>
+    </section>
   
 </template>
 
@@ -27,7 +30,7 @@ import axios from "axios";
 
 
 export default {
-    name:"User",
+    name:"Admin",
         data () {
             return { user:null
                 
@@ -54,6 +57,7 @@ export default {
             axios
              .delete("api/user/"+ id)
              .then(()=>{
+                 alert("user deleted")
                  this.getData();
 
              })
@@ -69,13 +73,20 @@ export default {
 </script>
 
 <style>
-    table {
-        padding:15px;
-    }
+    section {
+   
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px;
+}
 
     @media screen and (max-width: 768px) {
     section {
         padding: 50px;
+        top: 20%;
     }
 }
 

@@ -7,7 +7,7 @@ const auth = require("../middlewares/auth");
 
 
 
-router.get("/all",ctrlarticle.getall);
+router.get("/all",auth,ctrlarticle.getall);
 router.get("/getone/:id",ctrlarticle.getone);
 router.post("/",ctrlarticle.add);
 router.delete("/:id",ctrlarticle.delete);
