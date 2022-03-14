@@ -6,11 +6,14 @@
     
       <h1 class="h3 mb-3 fw-normal">Please Login</h1>
        
-  
-      <input type="email" class="form-control" v-model="email"  placeholder="name@example.com" require>
+        <div class="form-group">
+          <input type="email" class="form-control" v-model="email"  placeholder="name@example.com" require>
+        </div>
 
-      <input type="password" class="form-control" v-model="password" placeholder="Password" required>
-      
+        <div class="form-group">
+          <input type="password" class="form-control" v-model="password" placeholder="Password" required>
+        </div>
+
       <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
 
       <div class="container_signup">
@@ -62,6 +65,10 @@ export default {
 .container_signup {
   margin-top: 20px;
   box-shadow: 0px 0px 10px 0px grey;
+}
+
+.form-group{
+  margin-top: 20PX;
 }
 
 </style>

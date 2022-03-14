@@ -4,7 +4,7 @@ const db = require("../models/db");
 
 
 exports.getall  = (req, res, next)=>{
-   
+   console.log(req.auth)
     db.query("SELECT * from article", (err, result, fields)=>{
         if (err) {
             res.status(400).json(err);

@@ -42,7 +42,7 @@ export default {
         //return this.$store.getters["user"]
        //}
     //},
-    methods: {
+    methods: {                                  //recuper des data des user
 
         getData() {
             axios
@@ -52,7 +52,7 @@ export default {
                 this.user=result.data
 
             })
-        },
+        },                         //supresion du user
         deleteUser(id) {
             axios
              .delete("api/user/"+ id)
@@ -81,6 +81,7 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 100px;
+    top:20%;
 }
 
     @media screen and (max-width: 768px) {

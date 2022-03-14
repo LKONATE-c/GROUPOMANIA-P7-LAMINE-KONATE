@@ -2,8 +2,11 @@
   <div>
     <div v-if="article">
       <div class="the-article">
+        
         <h1>{{ article.title }}</h1>
+        <hr>
         <p>{{ article.content }}</p>
+        
         <img :src="article.image" />
         <!-- <img src="http://localhost:3001/images/monimage.png"> -->
         <div>
@@ -104,7 +107,6 @@ export default {
           }
         });
          
-
     },                      //supprimer l'article
     deleteArticle(id){
       axios
@@ -123,9 +125,6 @@ export default {
         this.revele = !this.revele;
     },
   
-      
-  
-
                   //modification de l'article
     updateArticle(articleUpdated){
       axios
@@ -140,9 +139,8 @@ export default {
               this.toggleModaleart()
             alert("article updated");
         });
-      
-
-      
+    
+                  //afficher les commentaire conçernant l'article
     },
      getAllCommentaire() {
     axios
@@ -165,7 +163,7 @@ export default {
             this.$router.push("/login");
           }
         });
-  },
+  },              //ajouter un commentaire 
   createcommentaire(e) {
     axios
     .post("/api/commentaire/", {
@@ -180,12 +178,10 @@ export default {
         commentaire:res.data,
         user:this.user
         })
-        
 
       })
-     
-         
-    },
+       
+    },                  //supression du commentaire
      deleteCommentaire(id) {
       axios
       .delete("api/commentaire/" + id)
@@ -222,6 +218,7 @@ export default {
   padding: 1px 0px 30px 0px;
   background-color: #d2fafa;
   border-radius: 10px;
+  text-align: center;
 }
 button {
   width: 120px;
@@ -258,6 +255,16 @@ button2 {
 .commDe {
   font-style: italic;
 }
+
+.hr {
+    border: none;
+    border-top: 3px double #333;
+    color: #333;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+}
+
 </style>
 
 

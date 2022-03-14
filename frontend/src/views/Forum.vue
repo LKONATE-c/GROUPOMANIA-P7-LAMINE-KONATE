@@ -43,7 +43,7 @@ export default {
 
   methods: { 
     
-    
+                        //recuperation de tous les articles
     
     getallarticle() {
       axios
@@ -67,7 +67,7 @@ export default {
         });
         
          
-    },
+    },                        //création d'un article qui sera publié sur le forum
 
     createArticle(e) {
       axios
@@ -92,15 +92,7 @@ export default {
     }
   
   },
-  //getallcommentaire() {
-    //axios
-    //.get ("api/commentaire/all/:id")
-    //.then((res) =>{
-       //console.log(res.data)
-
-
-    //})
-  //}
+ 
   mounted(){
     this.getallarticle();
    

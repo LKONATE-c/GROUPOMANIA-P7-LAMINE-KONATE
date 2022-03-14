@@ -3,10 +3,13 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    user:{},
+    user:null,
     token:null,
   },
   mutations: {
+    logout(state){
+      state.user = null;
+    }
   },
   actions: {
     login(context, payload){

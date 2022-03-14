@@ -102,7 +102,7 @@ export default {
     }
   },
   methods: {
-    
+                          //recuper des article publie par le user
     getArticlesProfile() {
      
       axios
@@ -117,30 +117,39 @@ export default {
             this.$router.push("/login");
           }
         });
-    },
+    },                          //voir tous les article que le user a ecris
     showarticle(id) {
     this.$router.push("/article/"+ id);
     },
     updateProfile() {
 
-    },
-    deletedProfile(id){
-      axios
-      .delete("api/user/"+id)
-      .then((res)=>{
-        alert("Your account is deleted!");
-        this.$router.push("/signup");
-      })
+    },                          //recuper les data afin de pour suprimer l'user
+    getData() {
+          axios
+          .get("/api/user/all/" )
+          .then((result)=>{
+              console.log(result)
+              this.user=result.data
 
-    },
+            })
+        },
+     deleteProfile(id) {
+            axios
+             .delete("api/user/"+ id)
+             .then(()=>{
+                 alert("user deleted")
+                 this.getData();
+                  this.$router.push("/Signup");
 
+             })
+        },
+
+                                //deconexion 
     logout(){
           localStorage.clear();
+          this.$store.commit("logout");
           this.$router.push("/login");
     },
-
-    
-    
   },
   
   mounted() {

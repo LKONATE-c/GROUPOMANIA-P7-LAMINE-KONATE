@@ -6,7 +6,7 @@ import Profile from '@/views/Profile.vue'
 import Onearticle from '@/views/Onearticle.vue'
 import Forum from '@/views/Forum.vue'
 import Admin from '@/views/Admin.vue'
-
+import store from '@/store/index'
 
 
 
@@ -50,6 +50,13 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})      //verification si il y a un user de co pour empeche personne non co a utilise 
+router.beforeEach((to,from,next)=>{
+const user = store.getters["user"]
+if (user === null && to.name !== "Login"){
+  next({name:"Login"})
+}else{
+  next()
+}
 })
-
 export default router

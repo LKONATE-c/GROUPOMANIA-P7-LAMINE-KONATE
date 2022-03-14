@@ -8,16 +8,22 @@
     
        
 
-  
+      <div class="form-group">
         <input type="text" v-model="firstname" class="form-control"    placeholder="Firstname" required>
+      </div>
 
+      <div class="form-group">
         <input type="text" v-model="lastname" class="form-control"  placeholder="Lastname" required>
+       </div>
 
-
+      <div class="form-group">
         <input type="text" v-model="email"  class="form-control"   placeholder="name@example.com" required>
+       </div>
 
+      <div class="form-group">
         <input type="password" v-model="password"  class="form-control"  placeholder="Password" required>
-        <div v-if="passwordError" class="error">{{passwordError}}</div>
+        <!--<div v-if="passwordError" class="error">{{passwordError}}</div>-->
+       </div>
       
         <button class="w-100 btn btn-lg btn-primary" type="submit">Signup</button>
 
@@ -44,35 +50,26 @@ export default {
             lastname:'',
             email:'',
             password:'',
-            passwordError:''
+            //passwordError:''
         } 
     },
     methods:{
-         async handleSubmit() {
-            const data = {
-                firstname:this.firstname,
-                lastname:this.lastname,
-                email:this.email,
-                password:this.password,
-                passwordError: this.password.length > 2 ?
-                 '' : 'password must be a least 3 chars long'
-            }
-              console.table(data);
-      try {
-
-            const res =await axios.post("/api/user/signup", data);
-            
-            
-        console.log(res);
-        this.$router.push("/login");
-      } catch (error) {
-        alert(error?.response?.data?.error || "Une erreur est survenue.");
+      handlesubmit () {
+        axios
+        .post("/api/user/signup", {
+          firstname:this.firstname,
+          lastname:this.lastname,
+          password:this.password,
+          email:this.email
+        })
+        .then((res)=>{
+          console.log(res)
+          this.$router.push("/login");
+        })
       }
-        }
 
-    }
-
-}
+    }    
+  }
 </script>
 
 <style >
@@ -92,5 +89,20 @@ export default {
   font-weight: bold;
 
 }
+.form-group{
+  margin-top: 20PX;
+}
 
 </style>
+
+
+ax🇮os
+.post("/api/user/signup", {
+  firstname:this.firstname,
+  lastname:this.lastname,
+  password:this.password
+});
+then((res)=>{
+  console.log(res)
+   this.$router.push("/login");
+})
