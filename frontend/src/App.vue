@@ -9,10 +9,22 @@
 
 <script>
 import Nav from '@/components/Nav';
-
-
+import axios from "axios";
+                    //pour ne pas de le user soit deco
 export default {
-  components:{Nav}
+  components:{Nav},
+  mounted(){
+    if(localStorage.token) {
+      axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.token
+      axios.get("/api/user/me").then((res)=>{
+        this.$store.commit("setUser",res.data)
+        this.$router.push("/forum")
+      }).catch((error)=>{
+        console.log(error)
+        this.$router.push("/login")
+      })
+    }
+  }
  
 }
 </script>

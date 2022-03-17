@@ -96,13 +96,4 @@ export default {
 </style>
 
 
-ax🇮os
-.post("/api/user/signup", {
-  firstname:this.firstname,
-  lastname:this.lastname,
-  password:this.password
-});
-then((res)=>{
-  console.log(res)
-   this.$router.push("/login");
-})
+

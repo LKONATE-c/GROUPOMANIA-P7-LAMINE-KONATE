@@ -13,40 +13,17 @@
             />
       </div>
       
-      <div>
-        <!-- <label for="File" class="file">(Image facultative)</label> -->
-        <input type="file" id="file" ref="file" @change="selectFile()" />
-      </div>
-      <button type="submit" >Envoyer</button>
+      <button type="submit" >SEND</button>
     
 </form>
-  <!--<div>
-    <form @submit.prevent="buttonNewCommentaire">
-      <div>
-        <label for="commentaire"></label>
-        <hr />
-        <input
-          type="text"
-          id="commentaire"
-          placeholder="Here you comment"
-          v-model="commentaire"
-        />
-      </div>
-      <button type="submit" @click.prevent="addNewcomment">Envoyer</button>
-    </form>
-    <div class="error" v-if="error">
-      {{ error }}
-    </div>
-  </div>-->
+  
 </template>
 
 <script>
 
 export default {
   name: "Newcommentaire",
-  //props: {
-    //id: { type: Number },
-  //},
+ 
   data() {
     return {
        userId: "",

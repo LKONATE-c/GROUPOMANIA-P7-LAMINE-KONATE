@@ -20,8 +20,6 @@ exports.signup = (req, res, next)=> {
                         res.json(err);
                     }
             })
-    
-    
         }).catch((error)=>{
             res.satuts(500).json(error)
         })
@@ -30,9 +28,14 @@ exports.signup = (req, res, next)=> {
        }
         
     })
-    
-    
 
+}
+exports.me = (req,res, next) => {
+    if(req.auth) {
+        res.status(200).json(req.auth)
+    }else{
+        res.status(403).json("unithorized request")
+    }
 }
     
 // se connecter 
@@ -142,8 +145,6 @@ exports.modifAccount = (req, res, next) => {
         }
     
     })
-
-
     db.query("UPDATE  user SET lastname = ?",[req.body.lastname],
     (err, result, fields) =>{
         if (!err) {
@@ -154,9 +155,6 @@ exports.modifAccount = (req, res, next) => {
 
     })
 }
-    
-    
-
     //recuperer tous les users
     exports.getall  = (req, res, next)=>{
    

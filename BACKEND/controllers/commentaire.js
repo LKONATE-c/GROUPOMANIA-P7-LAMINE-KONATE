@@ -13,30 +13,6 @@ exports.getall  = (req, res, next)=>{
       }
   })
 }
-
-
-
-
-
-//exports.getall  = (req, res, next)=>{
-    //const articleId = req.params.id
-    
-   //"SELECT * from commentaire  WHERE commentaire.articleid = ${articleId}"
-    //db.query("SELECT * from commentaire join article on article.id = commentaire.articleid",
-    //db.query("from commentaire WHERE articleid =?",[req.params.articleid,req.body.comment],
-     //(err, result, fields)=>{
-        
-        //if (err) {
-            //res.status(400).json(err);
-        
-        //} else{
-            //res.status(200).json(result)
-        //}
-    //})
-//}
-
-
-
 exports.add =  (req, res, next) =>{
     let data = [ req.body.comment, req.body.userid, req.body.articleid,];
     db.query("INSERT INTO commentaire ( comment, userid, articleid) VALUES (?, ?, ?)",
@@ -57,16 +33,11 @@ exports.add =  (req, res, next) =>{
     })
 }
 
-
-
-
 exports.delete = (req, res, next)=>{
     console.log("supprime");
     db.query("DELETE FROM commentaire WHERE id =?",
     [req.params.id], (err, result, fields)=>{
         console.log(err);
-       
-        //if (result[0].userId == req.body.userId || req.body.admin == true)
         if(!err)
             {
                 res.status(200).json({message:"deleted successfully."});

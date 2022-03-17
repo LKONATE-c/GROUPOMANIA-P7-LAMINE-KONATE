@@ -2,31 +2,50 @@
    
   <div class="card">
     <div class="media-body">
-			    <!--<p class="m-0">Benjamin Robinson</p>-->
-           <p class="commDe">Publié par {{ user.firstname }} {{ user.lastname }} 
+			   
+          <p class="commDe">published by {{ user.firstname }} {{ user.lastname }} 
              le {{new Date(article.date).toLocaleDateString("fr")
-}}</p>
+        }}</p>
    </div>
-    <!--<router-link :to="`/article/${article.id}`">-->
-    <h2>{{ article.title }}</h2>
-    <p>{{ article.content }}</p>
-     <!--</router-link>-->
+    
+      <h2>{{ article.title }}</h2>
+      <p>{{ article.content }}</p>
     <div>
       <router-link :to="`/article/${article.id}`">
-        <!--<img :src="image" />-->
       </router-link>
     </div>
-    <!--<p class="commDe">Publié par {{ user.firstname }} {{ user.lastname }}</p>-->
-    <router-link :to="`/article/${article.id}`"> See Commentary ...</router-link>
+    <router-link :to="`/article/${article.id}`"> See Commentary ...
+    <span v-if="nbcomments > 0" >({{ nbcomments }})</span></router-link>
     
 		
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-  props: ["article", "user" ]
+  data(){
+    return{
+      nbcomments:0
+    }
+  },
+  props: ["article", "user" ],
+  methods:{
+    getcomments () {
+      axios
+      .get("/api/commentaire/all/"+this.article.id)
+      .then((res) =>{
+        this.nbcomments = res.data.length
+
+        
+      })
+    }
+  },
+  mounted (){
+    this.getcomments();
+  }
 };
+
 </script>
 
 <style scoped>

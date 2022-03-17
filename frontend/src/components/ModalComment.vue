@@ -1,6 +1,7 @@
 <template>
     
     <div class="bloc-modaleartComment" v-if="revele">
+        <div class="overlay" v-on:click="toggleModaleart"></div>
 
         <div class="modalComment card">
 
@@ -33,16 +34,26 @@ export default {
 </script>
 
 <style>
-.bloc-modalComment {
+.bloc-modaleartComment{
     position:fixed;
     display: flex;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    width: 100%;
+    height: 100%;
     align-items: center;
     justify-content: center;
      align-content: space-between;
+}
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .modalComment-body {
     margin-top: 10px;
@@ -57,5 +68,6 @@ export default {
     bottom: 10px;
     left: 10px;
 }
+
 
 </style>

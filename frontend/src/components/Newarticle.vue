@@ -20,10 +20,7 @@
             v-model="content"
             />
       </div>
-      <div>
-        <!-- <label for="File" class="file">(Image facultative)</label> -->
-        <input type="file" id="file" ref="file" @change="selectFile()" />
-      </div>
+     
       <button type="submit" @click.prevent="addNewArticle">Envoyer</button>
     
   </div>

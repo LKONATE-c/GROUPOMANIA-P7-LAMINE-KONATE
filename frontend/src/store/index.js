@@ -9,6 +9,9 @@ export default createStore({
   mutations: {
     logout(state){
       state.user = null;
+    },
+    setUser(state, payload){
+      state.user = payload;
     }
   },
   actions: {
@@ -17,7 +20,7 @@ export default createStore({
         axios.post("/api/user/login", payload).then((res)=>{
           console.log(res)
           axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
-
+          localStorage.setItem("token", res.data.token)
           context.state.user = res.data.user;
           
           context.state.token = res.data.token
