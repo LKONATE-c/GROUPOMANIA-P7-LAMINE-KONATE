@@ -20,8 +20,10 @@
             v-model="content"
             />
       </div>
-     
-      <button type="submit" @click.prevent="addNewArticle">Envoyer</button>
+      <div>
+        <input type="file" @change="upload">
+      </div>
+      <button type="submit" @click.prevent="addNewArticle">SEND</button>
     
   </div>
 </template>
@@ -47,7 +49,9 @@ export default {
         image:"url",
       });
     },
-
+    upload (e) {
+      this.$emit('upload',e.target.files)
+    }
 
    
     

@@ -30,19 +30,25 @@ exports.getone =  (req, res, next)=>{
 } 
 
 exports.add = (req, res, next) =>{
-    let data = [ req.body.content, req.body.image, req.body.userid, req.body.title ];
+    console.log(req.body)
+    let article = JSON.parse(req.body.article)
+    let imageUrl = null
+    if(req.file){
+        imageUrl = `${req.protocol}://${req.get('host')}/api/images/${req.file.filename}`
+    }
+    let data = [ article.content, imageUrl,  article.userid, article.title ];
    console.log(req.body)
-    db.query("INSERT INTO article ( content, image,userid, title) VALUES (?, ?, ?, ?  )",
+    db.query("INSERT INTO article ( content, imageUrl,userid, title) VALUES (?, ?, ?, ?  )",
     data, (err,result,fields) =>{
         if(!err){
-            const article= {
+            const newarticle= {
                 id:result.insertId,
-                title:req.body.title,
-                content:req.body.content,
-                image:req.body.image,
-                userid:req.body.userid,
+                title:article.title,
+                content:article.content,
+                imageUrl:imageUrl,
+                userid:article.userid,
             }
-            res.json(article);
+            res.json(newarticle);
         }else {
             console.log(err);
             res.json(err);

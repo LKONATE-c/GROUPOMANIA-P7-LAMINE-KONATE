@@ -5,7 +5,7 @@
         <h1>{{ article.title }}</h1>
         <hr />
         <p>{{ article.content }}</p>
-        <div>
+        <div>                             
           <button
             v-if="article.userid === user.id || isAdmin"
             @click.prevent="deleteArticle(article.id)"
@@ -55,7 +55,7 @@
           >
             Supprimer
           </button>
-          <!--</div>-->
+         
         </div>
       </div>
     </div>
@@ -137,7 +137,7 @@ export default {
           alert("article updated");
         });
 
-      //afficher les commentaire conçernant l'article
+      //afficher les commentaires conçernant l'article
     },
     getAllCommentaire() {
       axios

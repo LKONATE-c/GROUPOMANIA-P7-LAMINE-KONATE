@@ -16,7 +16,7 @@ export default createStore({
   },
   actions: {
     login(context, payload){
-      return new Promise((resolve)=>{
+      return new Promise((resolve,reject)=>{
         axios.post("/api/user/login", payload).then((res)=>{
           console.log(res)
           axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`;
@@ -27,6 +27,7 @@ export default createStore({
           resolve()
         }).catch((error)=>{
            console.log(error)
+           reject()
         }) 
 
       }) 

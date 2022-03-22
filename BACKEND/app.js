@@ -28,7 +28,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 //enregistrement des routeurs
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/api/images', express.static(path.join(__dirname, 'images')));
 
 app.use("/api/article", ArticleRoutes);
 

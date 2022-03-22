@@ -1,18 +1,18 @@
 <template>
-   
   <div id="container">
     <div class="allarticle">
-      <cardArticle v-for="objet in allArticles"
+      <cardArticle
+        v-for="objet in allArticles"
         :key="objet.article.id"
         :article="objet.article"
         :user="objet.user"
       />
     </div>
     <div class="newarticle">
-      <newArticle v-on:createarticle="createArticle($event)" />
+      <newArticle v-on:createarticle="createArticle($event)" 
+       v-on:upload="upload($event)"/>
     </div>
   </div>
-  
 </template>
 <script>
 import axios from "axios";
@@ -28,82 +28,77 @@ export default {
   },
   data() {
     return {
-      
       allArticles: [],
       allCommentaire: [],
+      file: null,
     };
-
   },
-  computed:{
-    user(){
-      return this.$store.getters["user"]
-    }
+  computed: {
+    user() {
+      return this.$store.getters["user"];
+    },
   },
- 
 
-  methods: { 
-    
-                        //recuperation de tous les articles
-    
+  methods: {
+    //recuperation de tous les articles
+
     getallarticle() {
       axios
-      .get("/api/article/all/" )
-      .then((res) => {
-          console.log(res.data)
-          res.data.forEach((article)=>{
-            axios.get("/api/user/getone/"+ article.userid).then((res)=>{
+        .get("/api/article/all/")
+        .then((res) => {
+          console.log(res.data);
+          res.data.forEach((article) => {
+            axios.get("/api/user/getone/" + article.userid).then((res) => {
               this.allArticles.push({
-                article:article,
-                user:res.data,
-              })
-            })
-          })
+                article: article,
+                user: res.data,
+              });
+            });
+          });
         })
-          .catch((error) => {
+        .catch((error) => {
           console.log({ error });
           if (error.status === 401) {
             this.$router.push("/login");
           }
         });
-        
-         
-    },                        //création d'un article qui sera publié sur le forum
+    }, //création d'un article qui sera publié sur le forum
 
     createArticle(e) {
+     
+        const formdata =  new FormData()
+        formdata.append("image",this.file)
+        formdata.append("article",JSON.stringify({
+           title: e.title,
+          content: e.content,
+          userid: this.user.id,
+        }))
+      
       axios
-       .post("/api/article/", {
-         title:e.title,
-         content:e.content,
-         image:e.image,
-         userid:this.user.id
+        .post("/api/article/", 
+        formdata
+        )
+        .then((res) => {
+          console.log(res.data);
+          this.allArticles.push({
+            article: res.data,
+            user: this.user,
+          });
+        });
+    },
+    upload(files) {
+      this.file = files[0]
 
-       })
-      .then((res) =>{
-        console.log(res.data)
-        this.allArticles.push({
-          article:res.data,
-          user:this.user
-        })
-        
-
-      })
-     
-     
     }
-  
   },
- 
-  mounted(){
+
+  mounted() {
     this.getallarticle();
-   
-  }
+  },
 };
 </script>
 
-
-
 <style>
-
 #container {
   display: flex;
   justify-content: space-around;
@@ -127,7 +122,7 @@ export default {
     flex-wrap: wrap;
     justify-content: space-around;
   }
-  .allarticle{
+  .allarticle {
     width: 100%;
   }
   .newarticle {

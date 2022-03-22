@@ -53,7 +53,7 @@ const router = createRouter({
 })      //verification si il y a un user de co pour empeche personne non co a utilise 
 router.beforeEach((to,from,next)=>{
 const user = store.getters["user"]
-if (user === null && to.name !== "Login"){
+if (user === null && to.name !== "Login" && to.name !== "Signup"){
   next({name:"Login"})
 }else{
   next()

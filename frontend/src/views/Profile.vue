@@ -1,9 +1,9 @@
- <template>
+<template>
   <div>
     <h1>My PROFILE</h1>
     <div id="container">
       <!-- ICI ajouter de quoi afficher les posts du profil -->
-   <div  class="les-Posts">
+      <div class="les-Posts">
         <!--<div class="les-Posts">-->
         <h3>My ITEMS</h3>
         <cardArticle
@@ -19,14 +19,14 @@
         <div v-if="user">
           <p>E-mail :{{ " " + user.email }}</p>
           <p>
-            Firstname and  Lastname :
+            Firstname and Lastname :
             {{ user.firstname + " " + user.lastname }}
           </p>
           <hr />
         </div>
-       
-        <!-- modification Nom et prénom du profil -->
-        <form @submit.prevent="updateProfile">
+
+       <!-- modification Nom et prénom du profil -->
+         <form @submit.prevent="updateProfile">
           <div>
             <label for="lastname">Lastname</label><br />
             <input
@@ -52,21 +52,21 @@
 
           <button type="submit" @click.prevent="updateProfile">Modifier</button>
           <p v-if="message">{{ message }}</p>
-        </form>
-        <hr />
+        </form> 
+        
         <!-- Supprimer le profil -->
         <button class="deletebtn" v-on:click="deleteProfile(user.id)">
           Supprimer mon compte
         </button>
         <!-- deco du  profil -->
         <button class="logoutbtn" type="submit" @click.prevent="logout">
-         Deconnexion
+          Deconnexion
         </button>
 
-
-        <hr/>
-        <P> Follow the news on our forum
-              <router-link to="/forum">GO Forum</router-link>
+        <hr />
+        <P>
+          Follow the news on our forum
+          <router-link to="/forum">GO Forum</router-link>
         </P>
       </div>
     </div>
@@ -96,19 +96,18 @@ export default {
       lastname: "",
     };
   },
-  computed:{
-    user(){
-      return this.$store.getters["user"]
-    }
+  computed: {
+    user() {
+      return this.$store.getters["user"];
+    },
   },
   methods: {
-                          //recuper des article publie par le user
+    //recuper des article publie par le user
     getArticlesProfile() {
-     
       axios
-        .get("/api/article/all/" + this.user.id  )
+        .get("/api/article/all/" + this.user.id)
         .then((res) => {
-          console.log(res.data)
+          console.log(res.data);
           this.articles = res.data;
         })
         .catch((error) => {
@@ -117,52 +116,43 @@ export default {
             this.$router.push("/login");
           }
         });
-    },                          //voir tous les article que le user a ecris
+    }, //voir tous les article que le user a ecris
     showarticle(id) {
-    this.$router.push("/article/"+ id);
+      this.$router.push("/article/" + id);
     },
-    updateProfile() {
-
-    },                          //recuper les data afin de pour suprimer l'user
+    updateProfile() {}, //recuper les data afin de pour suprimer l'user
     getData() {
-          axios
-          .get("/api/user/all/" )
-          .then((result)=>{
-              console.log(result)
-              this.user=result.data
+      axios.get("/api/user/all/").then((result) => {
+        console.log(result);
+        this.user = result.data;
+      });
+    },
+    deleteProfile(id) {
+      axios.delete("api/user/" + id).then(() => {
+        alert("user deleted");
+        this.getData();
+        this.$router.push("/Signup");
+      });
+    },
 
-            })
-        },
-     deleteProfile(id) {
-            axios
-             .delete("api/user/"+ id)
-             .then(()=>{
-                 alert("user deleted")
-                 this.getData();
-                  this.$router.push("/Signup");
-
-             })
-        },
-
-                                //deconexion 
-    logout(){
-          localStorage.clear();
-          this.$store.commit("logout");
-          this.$router.push("/login");
+    //deconexion
+    logout() {
+      localStorage.clear();
+      this.$store.commit("logout");
+      this.$router.push("/login");
     },
   },
-  
+
   mounted() {
     /*appeler les fonctions quand l'html sera pret*/
-   
+
     this.getArticlesProfile();
-    //this. showarticle();
+   
   },
 };
 </script>
 
 <style scoped>
-
 #container {
   display: flex;
   justify-content: space-around;
@@ -272,4 +262,4 @@ hr {
     width: 100%;
   }
 }
-</style>-->
+</style>
