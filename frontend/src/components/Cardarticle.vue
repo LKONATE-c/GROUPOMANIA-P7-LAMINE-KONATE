@@ -2,7 +2,7 @@
   <div class="card">
     <div class="media-body">
       <p class="commDe">
-        published by {{ user.firstname }} {{ user.lastname }} le
+        published by : {{ user.firstname }} {{ user.lastname }} le
         {{ new Date(article.date).toLocaleDateString("fr") }}
       </p>
     </div>
@@ -12,6 +12,8 @@
     <img :src="article.imageUrl" v-if="article.imageUrl">
     <p>{{ article.content }}</p>
     <div>
+
+      <hr>
       <router-link :to="`/article/${article.id}`"> </router-link>
     </div>
     <router-link :to="`/article/${article.id}`">
@@ -58,9 +60,14 @@ export default {
 img {
   max-width: 60%;
 }
+hr {
+  border: 1px solid red;
+}
+
 @media screen and (max-width: 1130px) {
   img {
     max-width: 90%;
   }
+
 }
 </style>

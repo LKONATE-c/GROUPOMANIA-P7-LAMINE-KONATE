@@ -30,7 +30,7 @@
     
         <div class="container_login">
         <p>
-            Vous avez déjà un compte? <router-link to="/login">login</router-link>.
+           Already have an account? <router-link to="/login">login</router-link>.
         </p>
         </div>
     

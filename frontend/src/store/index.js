@@ -37,6 +37,9 @@ export default createStore({
   getters:{
     user(state){
       return state.user
+    },
+    isAdmin(state){
+      return state.user.role === "Admin"
     }
   },
   modules: {

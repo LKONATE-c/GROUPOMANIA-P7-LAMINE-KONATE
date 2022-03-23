@@ -46,8 +46,10 @@ export default {
       this.$emit('createarticle',{
         title:this.title,
         content:this.content,
-        image:"url",
+       
       });
+      this.title = null;
+      this.content = null;
     },
     upload (e) {
       this.$emit('upload',e.target.files)

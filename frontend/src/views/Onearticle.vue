@@ -1,9 +1,10 @@
 <template>
   <div>
     <div v-if="article">
-      <div class="the-article">
+      <div class="the-article one">
         <h1>{{ article.title }}</h1>
         <hr />
+        <img :src="article.imageUrl" v-if="article.imageUrl">
         <p>{{ article.content }}</p>
         <div>                             
           <button
@@ -16,6 +17,7 @@
         <modaleart
           v-if="article.userid === user.id || isAdmin"
           @update="updateArticle($event)"
+          @upload="upload($event)"
           v-bind:revele="revele"
           v-bind:toggleModaleart="toggleModaleart"
           :article="article"
@@ -79,15 +81,18 @@ export default {
     return {
       article: null,
       commentaire: [],
-      isAdmin: false,
       revele: false,
       allCommentaire: [],
+      file:null,
     };
   },
   computed: {
     user() {
       return this.$store.getters["user"];
     },
+    isAdmin() {
+      return this.$store.getters["isAdmin"];
+    }
   },
   methods: {
     //chager l'article selectionner
@@ -121,19 +126,34 @@ export default {
     toggleModaleart: function () {
       this.revele = !this.revele;
     },
+    upload(files){
+      this.file = files[0];
+    },
 
     //modification de l'article
     updateArticle(articleUpdated) {
-      axios
-        .put("/api/article/update", {
-          title: articleUpdated.title,
+      let formdata = new FormData()
+      formdata.append("article",JSON.stringify({
+        title: articleUpdated.title,
           content: articleUpdated.content,
           id: this.article.id,
-        })
+          imageUrl:this.article.imageUrl
+      }))
+      if(this.file){
+        formdata.append("image",this.file)
+      }
+      console.log(formdata);
+      console.log(this.file)
+      axios
+        .put("/api/article/update", 
+            formdata
+        )
         .then((response) => {
           this.article.title = articleUpdated.title;
           this.article.content = articleUpdated.content;
+          this.article.imageUrl = response.data.imageUrl;
           this.toggleModaleart();
+          this.file = null;
           alert("article updated");
         });
 
@@ -208,6 +228,10 @@ export default {
   background-color: #d2fafa;
   border-radius: 10px;
   text-align: center;
+ 
+}
+.the-article.one{
+  overflow: hidden;
 }
 button {
   width: 120px;
@@ -251,5 +275,8 @@ button2 {
   overflow: visible;
   text-align: center;
   height: 5px;
+}
+.the-article.one img {
+  max-height: 200px;
 }
 </style>

@@ -47,6 +47,7 @@ exports.add = (req, res, next) =>{
                 content:article.content,
                 imageUrl:imageUrl,
                 userid:article.userid,
+                date:new Date(),
             }
             res.json(newarticle);
         }else {
@@ -72,14 +73,20 @@ exports.delete =(req, res, next) =>{
 }
 
 exports.update = (req,res, next)=>{
-    console.log(req.body)
-    db.query("UPDATE article SET content = ?, title = ? WHERE id = ?",
-    [req.body.content, req.body.title, req.body.id],
+    
+    let article = JSON.parse(req.body.article)
+    let newImageUrl=article.imageUrl;
+    if (req.file){
+        newImageUrl= `${req.protocol}://${req.get('host')}/api/images/${req.file.filename}`
+
+    }
+    db.query("UPDATE article SET content = ?, title = ?, imageUrl = ? WHERE id = ?",
+    [article.content, article.title, newImageUrl, article.id],
     (err, result, fields) =>{
         if (!err) {
-            res.json("update successfully");
+            res.json({message:"update successfully", imageUrl:newImageUrl});
         } else {
-            res.json(err)
+            res.status(500).json(err)
         }
     })
 }

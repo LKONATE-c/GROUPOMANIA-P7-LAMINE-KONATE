@@ -28,7 +28,7 @@
 
     <div class="container_signup">
       <p>
-        Vous n'avez pas de compte?
+       You do not have an account?
         <router-link to="/signup">signup</router-link>.
       </p>
     </div>

@@ -9,8 +9,10 @@
       />
     </div>
     <div class="newarticle">
-      <newArticle v-on:createarticle="createArticle($event)" 
-       v-on:upload="upload($event)"/>
+      <newArticle
+        v-on:createarticle="createArticle($event)"
+        v-on:upload="upload($event)"
+      />
     </div>
   </div>
 </template>
@@ -53,6 +55,7 @@ export default {
                 article: article,
                 user: res.data,
               });
+              this.sortArticles()
             });
           });
         })
@@ -62,34 +65,44 @@ export default {
             this.$router.push("/login");
           }
         });
-    }, //création d'un article qui sera publié sur le forum
+    },          //trie par date 
+    sortArticles() {
+      this.allArticles.sort((itemA, itemB) => {
+        return (
+          new Date(itemA.article.date).valueOf() -
+          new Date(itemB.article.date).valueOf()
+        );
+      });
+      this.allArticles.reverse();
+    },
+
+    //création d'un article qui sera publié sur le forum
 
     createArticle(e) {
-     
-        const formdata =  new FormData()
-        formdata.append("image",this.file)
-        formdata.append("article",JSON.stringify({
-           title: e.title,
+      const formdata = new FormData();
+      formdata.append("image", this.file);
+      formdata.append(
+        "article",
+        JSON.stringify({
+          title: e.title,
           content: e.content,
           userid: this.user.id,
-        }))
-      
-      axios
-        .post("/api/article/", 
-        formdata
-        )
-        .then((res) => {
-          console.log(res.data);
-          this.allArticles.push({
-            article: res.data,
-            user: this.user,
-          });
+        })
+      );
+
+      axios.post("/api/article/", formdata).then((res) => {
+        console.log(res.data);
+        this.allArticles.push({
+          article: res.data,
+          user: this.user,
         });
+        this.sortArticles()
+        this.file = null;
+      });
     },
     upload(files) {
-      this.file = files[0]
-
-    }
+      this.file = files[0];
+    },
   },
 
   mounted() {

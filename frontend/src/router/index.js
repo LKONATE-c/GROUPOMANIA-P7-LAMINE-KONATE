@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/views/Home.vue'
 import Login from '@/views/Login.vue'
 import Signup from '@/views/Signup.vue'
 import Profile from '@/views/Profile.vue'
@@ -11,10 +10,7 @@ import store from '@/store/index'
 
 
 const routes = [
-  {path:'/Home',
-  name:'Home',
-   component: Home
-  },
+  
 
   {path:'/Login',
   name:'Login',
@@ -50,7 +46,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})      //verification si il y a un user de co pour empeche personne non co a utilise 
+})      //Empeche une personne non co d'aller partout sur le site
 router.beforeEach((to,from,next)=>{
 const user = store.getters["user"]
 if (user === null && to.name !== "Login" && to.name !== "Signup"){
