@@ -53,7 +53,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 section {
   width: 100%;
   min-height: 100vh;
@@ -63,6 +63,13 @@ section {
   padding: 100px;
   top: 20%;
 }
+h1 {
+ font-family:Georgia,serif;
+ color:#589017;
+ font-size:30px;
+ line-height:1em;
+ margin:0 0 0 60px;
+ }
 
 @media screen and (max-width: 768px) {
   section {

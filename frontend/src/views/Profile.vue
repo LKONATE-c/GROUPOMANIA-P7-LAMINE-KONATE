@@ -24,36 +24,6 @@
           </p>
           <hr />
         </div>
-
-       <!-- modification Nom et prénom du profil -->
-         <form @submit.prevent="updateProfile">
-          <div>
-            <label for="lastname">Lastname</label><br />
-            <input
-              required
-              v-model="user.lastname"
-              type="text"
-              name="lastName"
-              id="lastname-input"
-              placeholder="Dupont"
-            />
-          </div>
-          <div>
-            <label for="firstname">Firstname</label><br />
-            <input
-              required
-              v-model="user.firstname"
-              type="text"
-              name="firstname"
-              id="firstname-input"
-              placeholder="Charles"
-            />
-          </div>
-
-          <button type="submit" @click.prevent="updateProfile">Modifier</button>
-          <p v-if="message">{{ message }}</p>
-        </form> 
-        
         <!-- Supprimer le profil -->
         <button class="deletebtn" v-on:click="deleteProfile(user.id)">
           Supprimer mon compte
@@ -234,17 +204,7 @@ button {
 form {
   padding-top: 20px;
 }
-#lastname-input,
-#firstname-input {
-  margin-bottom: 15px;
-  margin-top: 5px;
-  width: 500px;
-  max-width: 94%;
-  border-style: solid;
-  border-color: #31bcc6;
-  background-color: white;
-  text-align: center;
-}
+
 hr {
   border: 2px solid #d6dfe2;
 }

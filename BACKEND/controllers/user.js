@@ -105,18 +105,7 @@ exports.delete = (req, res, next) => {
     }
   );
 };
-//recupérer tous par nom ou prénom
-exports.getall = (req, res, next) => {
-  db.query(
-    "SELECT * FROM user where firstname LIKE '%${req.body.firstname}%' OR lastname LIKE '%${req.body.lastname}%'",
-    [req.body.firstname, req.body.lastname],
-    function (err, result) {
-      if (err) res.statuts(400).json({ err });
-      res.status(200);
-      json(result);
-    }
-  );
-};
+
 
 //récuperer par son id
 exports.getone = (req, res, next) => {
@@ -133,40 +122,7 @@ exports.getone = (req, res, next) => {
   );
 };
 
-//modifier le mots de passe
-exports.modifyPassword = (req, res, next) => {
-  if (req.body.password) {
-    db.query(
-      "SELECT * FROM user WHERE id=?",
-      [req.params.id],
-      function (err, result) {
-        let user = result[0];
-        bcrypt
-          .compare(req.body.oldPassword, user.password)
-          .then((valid) => {
-            if (!valid) {
-              return res.status(401).json({ error: "wrong password" });
-            } else {
-              bcrypt
-                .hash(req.body.password, 10)
-                .then((hash) => {
-                  let sql2 = "UPDATE user SET password=? WHERE id=?";
 
-                  db.query(sql2, [hash, req.params.id], function (err, result) {
-                    if (err) throw err;
-                    res.status(200).json({ message: "password modify" });
-                  });
-                })
-                .catch((error) => res.status(500).json({ error }));
-            }
-          })
-          .catch((error) =>
-            res.status(400).json({ message: "authentication error" })
-          );
-      }
-    );
-  }
-};
 //modification du user
 exports.modifAccount = (req, res, next) => {
   db.query(

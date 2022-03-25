@@ -208,11 +208,9 @@ export default {
         .catch((error) => {
           console.log({ error });
         });
-      // afficher la modal
-    },
-    toggleModaleart: function () {
-      this.revele = !this.revele;
-    },
+      
+    }
+    
   },
 
   mounted() {

@@ -11,8 +11,8 @@ router.get("/getone/:id",auth,ctrluser.getone);
 router.post("/signup", ctrluser.signup);
 router.post("/login",ctrluser.login);
 router.delete("/:id",auth,ctrluser.delete);
-router.put("/modifyPassword/:id",auth,ctrluser.modifyPassword);
-router.put("/modifAccount/:id",auth,ctrluser.modifAccount);
+
+
 router.get("/me",auth,ctrluser.me)
 
 

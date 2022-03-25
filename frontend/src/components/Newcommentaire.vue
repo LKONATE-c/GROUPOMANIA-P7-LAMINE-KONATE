@@ -1,45 +1,39 @@
 <template>
-
-<form @submit.prevent="addNewComment" class="newCommentaire">
-    
-      <h3>New Comment</h3>
-      <div>
-        <label for="comment">comment :</label><br />
-            <input
-            type="comment"
-            id="comment"
-            placeholder="here your comment"
-            v-model="comment"
-            />
-      </div>
-      
-      <button type="submit" >SEND</button>
-    
-</form>
-  
+  <form @submit.prevent="addNewComment" class="newCommentaire">
+    <h3>New Comment</h3>
+    <div>
+      <label for="comment">comment :</label><br />
+      <input
+        type="comment"
+        id="comment"
+        placeholder="here your comment"
+        v-model="comment"
+      />
+    </div>
+    <button type="submit">SEND</button>
+  </form>
 </template>
 
 <script>
-
 export default {
   name: "Newcommentaire",
- 
+
   data() {
     return {
-       userId: "",
+      userId: "",
       comment: "",
       error: "",
     };
   },
   methods: {
-   
-    addNewComment:function () {
-      console.log(this.comment)
-      this.$emit("createcomment",{
-        comment:this.comment,
-        image:"url",
-      })
-    }
+    addNewComment: function () {
+      console.log(this.comment);
+      this.$emit("createcomment", {
+        comment: this.comment,
+        image: "url",
+      });
+      this.comment = null
+    },
   },
 };
 </script>
@@ -73,6 +67,4 @@ hr {
   margin-top: 30px;
   margin-bottom: 10px;
 }
-
-
 </style>

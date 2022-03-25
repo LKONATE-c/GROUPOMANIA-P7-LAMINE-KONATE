@@ -2,7 +2,8 @@
   <div class="card">
     <div class="media-body">
       <p class="commDe">
-        published by : {{ user.firstname }} {{ user.lastname }} le
+        published by : {{ user.firstname }} {{ user.lastname }}
+         le :
         {{ new Date(article.date).toLocaleDateString("fr") }}
       </p>
     </div>
@@ -32,7 +33,7 @@ export default {
     };
   },
   props: ["article", "user"],
-  methods: {
+  methods: {                
     getcomments() {
       axios.get("/api/commentaire/all/" + this.article.id).then((res) => {
         this.nbcomments = res.data.length;
@@ -53,6 +54,7 @@ export default {
   padding: 1px 30px 30px 30px;
   background-color: white;
   border-radius: 10px;
+  
 }
 .commDe {
   font-style: italic;
@@ -63,6 +65,15 @@ img {
 hr {
   border: 1px solid red;
 }
+h2 {
+ font-family:georgia,serif;font-size:18px;
+ font-style:italic;
+ color:#3E2F2F;
+ letter-spacing:0;
+ line-height:1.429em;
+ padding:0;
+ text-align:center;
+ }
 
 @media screen and (max-width: 1130px) {
   img {
