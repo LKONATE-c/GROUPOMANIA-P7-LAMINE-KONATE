@@ -40,7 +40,7 @@ exports.signup = (req, res, next) => {
       }
     }
   );
-};
+};          //LOG
 exports.me = (req, res, next) => {
   if (req.auth) {
     db.query("INSERT INTO log (userid) VALUES (?)", [req.auth.id]);

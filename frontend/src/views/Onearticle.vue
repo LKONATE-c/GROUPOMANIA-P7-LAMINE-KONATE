@@ -171,6 +171,7 @@ export default {
                 commentaire: commentaire,
                 user: res.data,
               });
+              this.sortCommentaires()
             });
           });
         })
@@ -190,10 +191,15 @@ export default {
         })
         .then((res) => {
           console.log(res.data);
+          let commentaire = {
+            date:new Date(),
+            ...res.data
+          }
           this.allCommentaire.push({
-            commentaire: res.data,
+            commentaire: commentaire,
             user: this.user,
           });
+          this.sortCommentaires()
         });
     }, //supression du commentaire
     deleteCommentaire(id) {
@@ -209,18 +215,19 @@ export default {
           console.log({ error });
         });
       
-    }
-    
-  },
+    },
+      //trier par date les commentaire
    sortCommentaires() {
-      this.allCommentaires.sort((itemA, itemB) => {
+      this.allCommentaire.sort((itemA, itemB) => {
         return (
           new Date(itemA.commentaire.date).valueOf() -
           new Date(itemB.commentaire.date).valueOf()
         );
       });
-      this.allCommentaires.reverse();
+      this.allCommentaire.reverse();
     },
+    
+  },                  
 
   mounted() {
     this.getonearticle();

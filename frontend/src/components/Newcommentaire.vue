@@ -30,9 +30,8 @@ export default {
       console.log(this.comment);
       this.$emit("createcomment", {
         comment: this.comment,
-        image: "url",
       });
-      this.comment = null
+      this.comment = null;
     },
   },
 };

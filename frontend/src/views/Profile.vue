@@ -29,7 +29,7 @@
           Supprimer mon compte
         </button>
         <!-- deco du  profil -->
-        <button class="logoutbtn" type="submit" @click.prevent="logout">
+        <button class="logoutbtn"  @click="logout">
           Deconnexion
         </button>
 
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import axios, { Axios } from "axios";
+import axios from "axios";
 import cardArticle from "../components/cardArticle";
 export default {
   name: "Profile",
@@ -108,8 +108,8 @@ export default {
     //deconexion
     logout() {
       localStorage.clear();
-      this.$store.commit("logout");
-      this.$router.push("/login");
+      window.location.href="/login";
+     
     },
   },
 
