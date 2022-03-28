@@ -212,6 +212,15 @@ export default {
     }
     
   },
+   sortCommentaires() {
+      this.allCommentaires.sort((itemA, itemB) => {
+        return (
+          new Date(itemA.commentaire.date).valueOf() -
+          new Date(itemB.commentaire.date).valueOf()
+        );
+      });
+      this.allCommentaires.reverse();
+    },
 
   mounted() {
     this.getonearticle();

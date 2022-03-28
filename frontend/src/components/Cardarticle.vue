@@ -54,6 +54,7 @@ export default {
   padding: 1px 30px 30px 30px;
   background-color: white;
   border-radius: 10px;
+  text-align: center;
   
 }
 .commDe {
