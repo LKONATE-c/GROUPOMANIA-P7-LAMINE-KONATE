@@ -11,7 +11,7 @@
 ## logiciel utilisé
 NodeJs - VueJs - MySQL - Bootstrap 
 
-## Instalation 
+## Installation 
 
 Il vous faut dans votre ordinateur :
 
