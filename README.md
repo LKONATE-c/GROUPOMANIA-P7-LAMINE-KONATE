@@ -27,9 +27,9 @@ https://github.com/LKONATE-c/GROUPOMANIA-P7-LAMINE-KONATE.git
 
 Dans le fichier groupomania/backend/.env ,mettre le mot de passe d'accès à votre base de donnée et votre nom d'utilisateur si besoin (root par défaut)
 
-DB_USER=root
+`DB_USER=root`
 
-DB_PASS=
+`DB_PASS=`
 
 Ouvrir MySql command Line client puis effectuer ces deux lignes de commandes :
 
@@ -42,9 +42,10 @@ Attention a indiquer le chemin avec des "/" et non des "\ ".
 
 ## BACK END
 Ouvrir un terminal dans le dossier backend puis effectuer les lignes de commandes suivantes :
-npm install
 
-node server
+`npm install`
+
+`node server`
 
 ## FRONT END 
 Ouvrir un autre terminal dans le dossier frontend puis effectuer les lignes de commandes suivantes :
